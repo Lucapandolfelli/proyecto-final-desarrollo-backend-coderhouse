@@ -1,0 +1,52 @@
+[
+  {
+    "nombre": "Producto 1",
+    "descripcion": "Descripción del producto",
+    "codigo": "PDT003",
+    "foto": "producto.jpg",
+    "precio": 1000,
+    "stock": 2,
+    "id": 1,
+    "timestamp": 1659973056821
+  },
+  {
+    "nombre": "Producto 2 Nuevo",
+    "descripcion": "Descripción del producto",
+    "codigo": "PDT002",
+    "foto": "producto.jpg",
+    "precio": 1000,
+    "stock": 2,
+    "id": 2,
+    "timestamp": 1659973920099
+  },
+  {
+    "nombre": "Producto 1",
+    "descripcion": "Descripción del producto",
+    "codigo": "PDT003",
+    "foto": "producto.jpg",
+    "precio": 1000,
+    "stock": 2,
+    "id": 3,
+    "timestamp": 1659973062733
+  },
+  {
+    "nombre": "Producto 1",
+    "descripcion": "Descripción del producto",
+    "codigo": "PDT003",
+    "foto": "producto.jpg",
+    "precio": 1000,
+    "stock": 2,
+    "id": 4,
+    "timestamp": 1659973063527
+  },
+  {
+    "nombre": "Producto 1",
+    "descripcion": "Descripción del producto",
+    "codigo": "PDT003",
+    "foto": "producto.jpg",
+    "precio": 1000,
+    "stock": 2,
+    "id": 5,
+    "timestamp": 1659973191024
+  }
+]
