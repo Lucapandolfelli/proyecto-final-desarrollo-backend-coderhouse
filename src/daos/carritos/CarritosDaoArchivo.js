@@ -1,10 +1,14 @@
-const fs = require("fs");
-const source = "./src/data/carrito.txt";
+import ContenedorArchivo from "../../containers/ContenedorArchivo.js";
+import fs from "fs";
 
 let id = 1;
 let arrayObj = [];
 
-class Carrito {
+class CarritosDaoArchivo extends ContenedorArchivo {
+  constructor() {
+    super("db/carritos.json");
+  }
+
   async createNewCart(cart) {
     try {
       const data = await this.getAll();
@@ -13,14 +17,17 @@ class Carrito {
         cart.id = id; // Le agrega el 'id' 1
         cart.timestamp = Date.now();
         arrayObj.push(cart); // Carga el primer carrito
-        await fs.promises.writeFile(source, JSON.stringify(arrayObj, null, 2));
+        await fs.promises.writeFile(
+          this.path,
+          JSON.stringify(arrayObj, null, 2)
+        );
       } else {
         // Si no está vacio
         let lastItem = data[data.length - 1]; // Encuentra el 'id' del último elemento del array
         cart.id = lastItem.id + 1; // Le suma 1
         cart.timestamp = Date.now();
         data.push(cart); // Lo carga
-        await fs.promises.writeFile(source, JSON.stringify(data, null, 2));
+        await fs.promises.writeFile(this.path, JSON.stringify(data, null, 2));
       }
       return cart;
     } catch (err) {
@@ -34,7 +41,7 @@ class Carrito {
       if (array === false) {
         return undefined; // No hay carritos en el array
       } else {
-        const data = await this.getCartById(id);
+        const data = await this.getById(id);
         if (data === null) {
           return false; // No encontró el carrito
         } else {
@@ -49,36 +56,12 @@ class Carrito {
           data.productos.push(newProduct); // Lo carga al array de productos del carrito
           array.push(data); // Cargamos ese array de productos al array de carritos
           array.sort((a, b) => a.id - b.id);
-          await fs.promises.writeFile(source, JSON.stringify(array, null, 2));
+          await fs.promises.writeFile(
+            this.path,
+            JSON.stringify(array, null, 2)
+          );
         }
         return newProduct;
-      }
-    } catch (err) {
-      return err;
-    }
-  }
-
-  async getAll() {
-    try {
-      const data = JSON.parse(await fs.promises.readFile(source, "utf-8"));
-      if (data.length > 0) {
-        return data; // El array no está vacio
-      } else {
-        return false; // El array está vacio
-      }
-    } catch (err) {
-      return err;
-    }
-  }
-
-  async getCartById(id) {
-    try {
-      const data = await this.getAll();
-      const cart = data.find((obj) => obj.id == id);
-      if (cart) {
-        return cart; // Encontró el carrito por su 'id'
-      } else {
-        return null; // No lo encontró
       }
     } catch (err) {
       return err;
@@ -94,9 +77,9 @@ class Carrito {
         // Hay carritos
         const cart = data.find((obj) => obj.id == id);
         if (cart.productos.length > 0) {
-          return cart; // Encontró el carrito por su 'id'
+          return cart; // Encontró productos en el carrito
         } else {
-          return null; // No encontró el carrito
+          return null; // No encontró productos en el carrito
         }
       }
     } catch (err) {
@@ -110,7 +93,7 @@ class Carrito {
       if (array == false) {
         return false; // No se encontraron carritos
       } else {
-        let data = await this.getCartById(cart_id);
+        let data = await this.getById(cart_id);
         if (data === null) {
           return null; // No se encontró el carrito
         } else {
@@ -123,7 +106,10 @@ class Carrito {
             );
             array.push(data);
             array.sort((a, b) => a.id - b.id);
-            await fs.promises.writeFile(source, JSON.stringify(array, null, 2));
+            await fs.promises.writeFile(
+              this.path,
+              JSON.stringify(array, null, 2)
+            );
             return true;
           }
         }
@@ -133,9 +119,9 @@ class Carrito {
     }
   }
 
-  async deleteCartById(id) {
+  async deleteById(id) {
     try {
-      const cart = await this.getCartById(id);
+      const cart = await this.getById(id);
       if (cart === null) {
         return false; // No encontró el carrito
       } else {
@@ -145,7 +131,7 @@ class Carrito {
           return null; // No encontró carritos en el array
         } else {
           data = data.filter((item) => item.id != cart.id);
-          await fs.promises.writeFile(source, JSON.stringify(data, null, 2));
+          await fs.promises.writeFile(this.path, JSON.stringify(data, null, 2));
           return true;
         }
       }
@@ -155,4 +141,4 @@ class Carrito {
   }
 }
 
-module.exports = new Carrito();
+export { CarritosDaoArchivo };

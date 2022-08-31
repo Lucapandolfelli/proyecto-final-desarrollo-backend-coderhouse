@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const Carrito = require("../classes/Carrito");
+import { Router } from "express";
+import { carritosDao as carritoApi } from "../daos/index.js";
+const router = Router();
 
 // GET /api/carrito/:id/productos
 router.get("/:id/productos", async (req, res) => {
   const { id } = req.params;
-  const data = await Carrito.getProductsByCartId(id);
+  const data = await carritoApi.getProductsByCartId(id);
   if (data === false) {
     res.status(404).send({ error: "No se encontraron carritos." });
   } else {
@@ -14,7 +14,7 @@ router.get("/:id/productos", async (req, res) => {
         .status(404)
         .send({ error: "No se encontraron productos en el carrito." });
     } else {
-      res.status(200).json({ cartProducts: data.productos });
+      res.status(200).json({ cartProducts: data });
     }
   }
 });
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
     Object.entries(newCart).length === 0 ||
     Object.entries(newCart).length < 3
   ) {
-    const data = await Carrito.createNewCart(newCart);
+    const data = await carritoApi.createNewCart(newCart);
     res.status(201).json({ newCart: data });
   } else {
     res.status(422).json({
@@ -41,9 +41,9 @@ router.post("/:id/productos", async (req, res) => {
   const newProduct = req.body;
   if (
     Object.entries(newProduct).length === 0 ||
-    Object.entries(newProduct).length < 7
+    Object.entries(newProduct).length < 9
   ) {
-    const data = await Carrito.createNewProduct(id, newProduct);
+    const data = await carritoApi.createNewProduct(id, newProduct);
     if (data === undefined) {
       res.status(404).send({ error: "No se encontraron carritos." });
     } else {
@@ -63,7 +63,7 @@ router.post("/:id/productos", async (req, res) => {
 // DELETE /api/carrito/:id
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const data = await Carrito.deleteCartById(id);
+  const data = await carritoApi.deleteById(id);
   if (data === false) {
     res.status(404).send({ error: "No se encontró el carrito." });
   } else {
@@ -78,7 +78,7 @@ router.delete("/:id", async (req, res) => {
 // DELETE /api/carrito/:id/productos/:id_prod
 router.delete("/:id/productos/:id_prod", async (req, res) => {
   const { id, id_prod } = req.params;
-  const data = await Carrito.deleteProductOfCartById(id, id_prod);
+  const data = await carritoApi.deleteProductOfCartById(id, id_prod);
   if (data === false) {
     res
       .status(404)
@@ -98,4 +98,4 @@ router.delete("/:id/productos/:id_prod", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
