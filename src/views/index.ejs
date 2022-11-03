@@ -1,0 +1,37 @@
+<%- include('./partials/header.ejs'); -%>
+
+<main>
+  <section class="products">
+    <div class="container">
+      <div class="products__header">
+        <h2>Productos</h2>
+      </div>
+      <div class="products__list">
+
+        <% if(products) { %>
+      
+          <ul class="products-list">
+            
+            <% products.forEach(function(product){ %>
+              
+                <li class="products-list__item">
+                  <h4><%= product.title %></h4>
+                  <p><%= product.description %></p>
+                </li>
+      
+            <% }); %>
+      
+            </ul>
+      
+        <% }else{ %>
+
+          <p>No products.</p>
+
+        <% } %>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('./partials/footer.ejs'); -%>

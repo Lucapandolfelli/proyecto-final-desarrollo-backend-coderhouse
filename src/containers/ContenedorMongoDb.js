@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import config from "../config.js";
 
 // Conexión a MongoDB
-await mongoose.connect(config.mongoDb.connectionString);
+/* await mongoose.connect(config.mongoDb.connectionString); */
 
 class ContenedorMongoDb {
   constructor(collectionName, schema) {

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Tiendita</title>
+</head>
+<body>
+  <main>
+    <section class="login">
+      <div class="container">
+        <div class="login__header">
+          <h2>Login</h2>
+        </div>
+        <div class="login__form">
+          <form action="/login" method="POST">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email">
+            </div>
+            <div class="field">
+              <label for="password">Contraseña</label>
+              <input type="password" name="password" id="password">
+            </div>
+            <button>Login</button>
+          </form>
+          <span>You're not register yet? <a href="/register">Do it here!</a></span>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+

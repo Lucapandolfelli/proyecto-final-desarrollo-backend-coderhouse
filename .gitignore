@@ -1,1 +1,13 @@
+# Ignore the node_modules directoy
 node_modules/
+
+# The file containing environment variables 
+.env
+
+# Ignore the following folder: containers, daos, db
+/src/containers/
+/src/daos/
+/src/db/
+
+# Ignore config.js file
+/src/config.js

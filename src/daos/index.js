@@ -32,7 +32,7 @@ switch (PERS) {
     carritosDao = new CarritosDaoFirebase();
     break;
 
-  case "mongoDb":
+  case "mongoDB":
     productosDao = new ProductosDaoMongoDb();
     carritosDao = new CarritosDaoMongoDb();
     break;

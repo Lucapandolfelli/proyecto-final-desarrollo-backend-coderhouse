@@ -2,7 +2,7 @@ import ContenedorMongoDb from "../../containers/ContenedorMongoDb.js";
 
 class ProductosDaoMongoDb extends ContenedorMongoDb {
   constructor() {
-    super("productos", {
+    super("products", {
       nombre: { type: String, require: true },
       descripcion: { type: String, require: true },
       codigo: { type: String, require: true },
@@ -30,10 +30,9 @@ class ProductosDaoMongoDb extends ContenedorMongoDb {
     }
   }
 
-  async editProduct(id, newProduct) {
+  async editProduct(array, id, newProduct) {
     try {
-      const doc = await this.collection.findByIdAndUpdate(id, newProduct);
-      return doc;
+      return await this.collection.findByIdAndUpdate(id, newProduct);
     } catch (err) {
       return err;
     }

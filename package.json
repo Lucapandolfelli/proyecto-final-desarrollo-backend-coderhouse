@@ -5,17 +5,24 @@
   "main": "./src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./src/server.js",
-    "start": "node ./src/server.js"
+    "dev": "nodemon -r dotenv/config ./src/server.js",
+    "start": "node -r dotenv/config ./src/server.js"
   },
   "keywords": [],
   "author": "Luca Pandolfelli",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.0.2",
+    "bcrypt": "^5.1.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
     "express": "4.18.1",
+    "express-session": "^1.17.3",
     "firebase-admin": "^11.0.1",
-    "mongoose": "^6.5.4"
+    "mongoose": "^6.7.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "2.0.19"

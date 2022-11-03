@@ -2,7 +2,7 @@ import ContenedorMongoDb from "../../containers/ContenedorMongoDb.js";
 
 class CarritosDaoMongoDb extends ContenedorMongoDb {
   constructor() {
-    super("carritos", {
+    super("cart", {
       productos: { type: [], require: true },
     });
   }
@@ -50,7 +50,6 @@ class CarritosDaoMongoDb extends ContenedorMongoDb {
               $push: { productos: newProduct },
             });
           }
-
           return doc;
         }
       }
