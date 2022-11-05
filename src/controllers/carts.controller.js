@@ -20,14 +20,26 @@ export const getProductsByCartId = async (req, res) => {
   try {
     const cart = await Cart.findById(id);
     if (cart) {
-      logger.info(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 200`);
+      logger.info(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 200`
+      );
       res.status(200).json({ products: cart.products });
     } else {
-      logger.error(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`);
+      logger.error(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 404`
+      );
       res.status(404).json({ error: "Cart not found." });
     }
   } catch (err) {
-    logger.warn(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 500`);
+    logger.warn(
+      `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+        req.method
+      } - Status: 500`
+    );
     res.status(500).json({ error: err?.message });
   }
 };
@@ -35,7 +47,11 @@ export const getProductsByCartId = async (req, res) => {
 export const createCart = async (req, res) => {
   const body = req.body;
   if (Object.entries(body).length == 0 || Object.entries(body).length < 1) {
-    logger.error(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 422`);
+    logger.error(
+      `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+        req.method
+      } - Status: 422`
+    );
     res.status(422).json({
       error: "No se pudo obtener los atributos del carrito correctamente.",
     });
@@ -45,10 +61,18 @@ export const createCart = async (req, res) => {
     try {
       const newCart = new Cart(body);
       await newCart.save();
-      logger.info(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 201`);
+      logger.info(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 201`
+      );
       res.status(201).json({ newCartId: newCart._id });
     } catch (err) {
-      logger.warn(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 500`);
+      logger.warn(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 500`
+      );
       res.status(500).json({ error: err?.message });
     }
   }
@@ -82,23 +106,35 @@ export const createProductOfACart = async (req, res) => {
       if (cart) {
         await Cart.updateOne({ _id: id, $push: { products: product } });
         logger.info(
-          `URL: ${req.baseUrl} - Method: ${req.method} - Status: 201`
+          `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+            req.method
+          } - Status: 201`
         );
         res
           .status(201)
           .json({ message: "Product added to cart.", newProduct: product });
       } else {
         logger.error(
-          `URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`
+          `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+            req.method
+          } - Status: 404`
         );
         res.status(404).json({ error: "Cart not found." });
       }
     } else {
-      logger.error(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`);
+      logger.error(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 404`
+      );
       res.status(404).json({ error: "Product not found." });
     }
   } catch (err) {
-    logger.warn(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 500`);
+    logger.warn(
+      `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+        req.method
+      } - Status: 500`
+    );
     res.status(500).json({ error: err?.message });
   }
 };
@@ -119,14 +155,26 @@ export const deleteCart = async (req, res) => {
     const cart = await Cart.findById(id);
     if (cart) {
       await Cart.findByIdAndDelete(id);
-      logger.info(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 200`);
+      logger.info(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 200`
+      );
       res.status(200).json({ message: "Deleted." });
     } else {
-      logger.error(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`);
+      logger.error(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 404`
+      );
       res.status(404).json({ error: "Cart not found." });
     }
   } catch (err) {
-    logger.warn(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 500`);
+    logger.warn(
+      `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+        req.method
+      } - Status: 500`
+    );
     res.status(500).json({ error: err?.message });
   }
 };
@@ -161,21 +209,33 @@ export const deleteProductById = async (req, res) => {
           { $pull: { products: { _id: id_prod } } }
         );
         logger.info(
-          `URL: ${req.baseUrl} - Method: ${req.method} - Status: 200`
+          `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+            req.method
+          } - Status: 200`
         );
         res.status(200).json({ message: "Product deleted of this cart." });
       } else {
         logger.error(
-          `URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`
+          `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+            req.method
+          } - Status: 404`
         );
         res.status(404).json({ error: "Cart not found." });
       }
     } else {
-      logger.error(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`);
+      logger.error(
+        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+          req.method
+        } - Status: 404`
+      );
       res.status(404).json({ error: "Product not found." });
     }
   } catch (err) {
-    logger.warn(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 500`);
+    logger.warn(
+      `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+        req.method
+      } - Status: 500`
+    );
     res.status(500).json({ error: err?.message });
   }
 };

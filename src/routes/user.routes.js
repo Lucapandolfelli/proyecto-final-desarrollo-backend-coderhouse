@@ -7,7 +7,11 @@ const router = Router();
 router.get("/", async (req, res) => {
   const { _id } = req.user;
   const user = await User.findById(_id);
-  logger.info(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 200`);
+  logger.info(
+    `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+      req.method
+    } - Status: 200`
+  );
   res.status(200).render("./pages/user.ejs", { user: user });
 });
 

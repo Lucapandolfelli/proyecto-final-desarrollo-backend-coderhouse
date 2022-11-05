@@ -43,9 +43,13 @@ const enableExpress = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      logger.info("MongoDB is connected.");
+      logger.info(`${new Date().toLocaleString()} - MongoDB is connected.`);
       app.listen(PORT, () => {
-        logger.info(`🚀 Server ${process.pid} running on port ${PORT}...`);
+        logger.info(
+          `${new Date().toLocaleString()} - 🚀 Server ${
+            process.pid
+          } running on port ${PORT}...`
+        );
       });
     })
     .catch((error) => logger.error(error.message));
@@ -55,12 +59,16 @@ const enableCluster = () => {
   const numCPUs = cpus().length;
 
   if (cluster.isPrimary) {
-    logger.info(`Master ${process.pid} is running.`);
+    logger.info(
+      `${new Date().toLocaleString()} - Master ${process.pid} is running.`
+    );
     for (let i = 0; i < numCPUs; i++) {
       cluster.fork();
     }
     cluster.on("exit", (worker) => {
-      logger.info(`${worker.process.pid} is finished.`);
+      logger.info(
+        `${new Date().toLocaleString()} - ${worker.process.pid} is finished.`
+      );
       cluster.fork();
     });
   } else {

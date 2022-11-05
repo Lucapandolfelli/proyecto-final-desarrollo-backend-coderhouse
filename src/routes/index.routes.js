@@ -13,7 +13,11 @@ const router = Router();
 
 router.get("/", isAuth, async (req, res) => {
   const products = await Product.find();
-  logger.info(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 200`);
+  logger.info(
+    `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+      req.method
+    } - Status: 200`
+  );
   res.status(200).render("index.ejs", { products: products });
 });
 
@@ -25,7 +29,11 @@ router.use("/api/carrito", cartRouter);
 router.use("/api/productos", productRouter);
 
 router.use((req, res) => {
-  logger.error(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 404`);
+  logger.error(
+    `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
+      req.method
+    } - Status: 404`
+  );
   res.status(404).render("./pages/404.ejs");
 });
 

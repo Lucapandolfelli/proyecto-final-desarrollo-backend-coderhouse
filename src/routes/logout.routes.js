@@ -8,7 +8,9 @@ router.get("/", (req, res) => {
       console.log(err);
     }
     logger.info(
-      `URL: ${req.url} - Method: ${req.method} - Status: ${req.statusCode}`
+      `${new Date().toLocaleString()} - URL: ${req.url} - Method: ${
+        req.method
+      } - Status: ${req.statusCode}`
     );
     res.status(302).redirect("/");
   });
