@@ -1,9 +1,11 @@
 import { Router } from "express";
 import passport from "passport";
+import logger from "../logs/logger.js";
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.render("./pages/login.ejs");
+  logger.info(`URL: ${req.baseUrl} - Method: ${req.method} - Status: 200`);
+  res.status(200).render("./pages/login.ejs");
 });
 
 router.post(

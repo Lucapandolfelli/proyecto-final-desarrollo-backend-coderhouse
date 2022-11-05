@@ -6,41 +6,72 @@ import passport from "passport";
 import "./middleware/passport.js";
 import compression from "compression";
 import cookieParser from "cookie-parser";
+import cluster from "node:cluster";
+import { cpus } from "node:os";
+import process from "node:process";
+import logger from "./logs/logger.js";
 
-const app = express();
+const enableExpress = () => {
+  // Express
+  const app = express();
+  // Middleware
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.static("public"));
+  app.use(compression());
+  app.use(cookieParser("coderhouse"));
+  app.use(
+    session({
+      secret: "coderhouse",
+      resave: true,
+      saveUninitialized: true,
+    })
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(router);
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use(compression());
-app.use(cookieParser("coderhouse"));
-app.use(
-  session({
-    secret: "coderhouse",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(router);
+  // View Engine
+  app.set("view engine", "ejs");
+  app.set("views", "./src/views");
 
-// View Engine
-app.set("view engine", "ejs");
-app.set("views", "./src/views");
+  // Server
+  const PORT = process.env.PORT || 8080;
+  mongoose
+    .connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      logger.info("MongoDB is connected.");
+      app.listen(PORT, () => {
+        logger.info(`🚀 Server ${process.pid} running on port ${PORT}...`);
+      });
+    })
+    .catch((error) => logger.error(error.message));
+};
 
-// Server
-const PORT = process.env.PORT || 8080;
+const enableCluster = () => {
+  const numCPUs = cpus().length;
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}...`);
+  if (cluster.isPrimary) {
+    logger.info(`Master ${process.pid} is running.`);
+    for (let i = 0; i < numCPUs; i++) {
+      cluster.fork();
+    }
+    cluster.on("exit", (worker) => {
+      logger.info(`${worker.process.pid} is finished.`);
+      cluster.fork();
     });
-  })
-  .catch((error) => console.log(error.message));
+  } else {
+    enableExpress();
+  }
+};
+
+const CLUSTER = false;
+
+if (CLUSTER) {
+  enableCluster();
+} else {
+  enableExpress();
+}

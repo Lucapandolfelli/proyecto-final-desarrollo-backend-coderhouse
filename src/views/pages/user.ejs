@@ -1,0 +1,22 @@
+<%- include('../partials/header.ejs', { title: 'User - Tiendita' }); -%>
+
+<main>
+  <section class="user">
+    <div class="container">
+      <div class="user__header">
+        <img src="<%= user.image %>" alt="<%= user.username %>">
+        <h2>Bienvenido, <%= user.username %> !</h2>
+      </div>
+      <div class="user__content">
+        <ul class="user__content--list">
+          <li>Email: <%= user.email %></li>
+          <li>Dirección: <%= user.address %></li>
+          <li>Edad: <%= user.age %></li>
+          <li>Telefono: <%= user.phone %></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs'); -%>

@@ -21,8 +21,11 @@
     "express-session": "^1.17.3",
     "firebase-admin": "^11.0.1",
     "mongoose": "^6.7.0",
+    "nodemailer": "^6.8.0",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "twilio": "^3.83.1",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "nodemon": "2.0.19"

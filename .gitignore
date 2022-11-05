@@ -4,7 +4,7 @@ node_modules/
 # The file containing environment variables 
 .env
 
-# Ignore the following folder: containers, daos, db
+# Ignore the following folders: containers, daos, db
 /src/containers/
 /src/daos/
 /src/db/
