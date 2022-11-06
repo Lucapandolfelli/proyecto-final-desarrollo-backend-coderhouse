@@ -16,7 +16,9 @@ export const getProductsByCartId = async (req, res) => {
       res.status(200).json({ cartProducts: data });
     }
   } */
-  const { id } = req.params;
+  const {
+    params: { id },
+  } = req;
   try {
     const cart = await Cart.findById(id);
     if (cart) {
@@ -45,7 +47,7 @@ export const getProductsByCartId = async (req, res) => {
 };
 
 export const createCart = async (req, res) => {
-  const body = req.body;
+  const { body } = req;
   if (Object.entries(body).length == 0 || Object.entries(body).length < 1) {
     logger.error(
       `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
@@ -98,7 +100,9 @@ export const createProductOfACart = async (req, res) => {
       error: "No se pudo obtener los atributos del producto correctamente.",
     });
   } */
-  const { id, id_prod } = req.params;
+  const {
+    params: { id, id_prod },
+  } = req;
   try {
     const product = await Product.findById(id_prod);
     const cart = await Cart.findById(id);
@@ -150,7 +154,9 @@ export const deleteCart = async (req, res) => {
       res.status(200).send({ success: "Se eliminó el carrito correctamente." });
     }
   } */
-  const { id } = req.params;
+  const {
+    params: { id },
+  } = req;
   try {
     const cart = await Cart.findById(id);
     if (cart) {
@@ -198,7 +204,9 @@ export const deleteProductById = async (req, res) => {
       }
     }
   } */
-  const { id, id_prod } = req.params;
+  const {
+    params: { id, id_prod },
+  } = req;
   try {
     const product = await Product.findById(id_prod);
     const cart = await Cart.findById(id);

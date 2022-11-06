@@ -14,7 +14,7 @@
           <h2>Register</h2>
         </div>
         <div class="register__form">
-          <form action="/register" method="POST">
+          <form action="/register" method="POST" enctype="multipart/form-data">
             <div class="field">
               <label for="username">Nombre de Usuario</label>
               <input type="text" id="username" name="username">
@@ -37,7 +37,7 @@
             </div>
             <div class="field">
               <label for="image">Avatar</label>
-              <input type="file" id="image" name="image">
+              <input type="file" name="image">
             </div>
             <div class="field">
               <label for="password">Contraseña</label>

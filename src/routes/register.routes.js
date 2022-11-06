@@ -2,7 +2,7 @@ import { Router } from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import logger from "../logs/logger.js";
-import { transporter } from "../utils/index.js";
+import { transporter, upload } from "../utils/index.js";
 
 const router = Router();
 
@@ -22,8 +22,12 @@ router.get("/", (req, res) => {
   res.status(200).render("./pages/register.ejs");
 });
 
-router.post("/", (req, res) => {
-  const { username, email, password, age, address, image, phone } = req.body;
+router.post("/", upload.single("image"), (req, res) => {
+  const { username, email, password, age, address, phone } = req.body;
+  const { file } = req;
+  if (!file) {
+    res.status(400).json({ error: "Please upload a file." });
+  }
   User.findOne({ username }, async (err, user) => {
     if (err) {
       logger.error(
@@ -48,7 +52,7 @@ router.post("/", (req, res) => {
         email,
         age,
         address,
-        image,
+        image: file.filename,
         phone,
         password: hashedPassword,
       });

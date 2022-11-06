@@ -15,8 +15,7 @@
             <% products.forEach(function(product){ %>
               
                 <li class="products-list__item">
-                  <h4><%= product.title %></h4>
-                  <p><%= product.description %></p>
+                  <%- include('./partials/productCard.ejs', { product: product }); -%>
                 </li>
       
             <% }); %>

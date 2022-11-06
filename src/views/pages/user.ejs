@@ -3,12 +3,12 @@
 <main>
   <section class="user">
     <div class="container">
-      <div class="user__header">
-        <img src="<%= user.image %>" alt="<%= user.username %>">
-        <h2>Bienvenido, <%= user.username %> !</h2>
+      <div class="user__header" style="height: 200px; width: 200px;">
+        <img src="uploads/<%= user.image %>" alt="<%= user.username %>" style="width: 100%; height: 100%; object-fit: cover;"> 
       </div>
       <div class="user__content">
         <ul class="user__content--list">
+          <h2>Bienvenido, <%= user.username %> !</h2>
           <li>Email: <%= user.email %></li>
           <li>Dirección: <%= user.address %></li>
           <li>Edad: <%= user.age %></li>

@@ -21,7 +21,9 @@ export const getProducts = async (req, res) => {
       res.status(200).render("index.ejs", { products: products });
     }
   } */
-  const { id } = req.params;
+  const {
+    params: { id },
+  } = req;
   if (id) {
     try {
       const product = await Product.findById(id);
@@ -78,7 +80,7 @@ export const getProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const body = req.body;
+  const { body } = req;
   if (Object.entries(body).length == 0 || Object.entries(body).length < 6) {
     logger.error(
       `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
@@ -128,7 +130,9 @@ export const updateProduct = async (req, res) => {
       res.status(404).send({ error: "No se encontró el producto." });
     }
   } */
-  const { id } = req.params;
+  const {
+    params: { id },
+  } = req;
   const newProduct = req.body;
   try {
     const product = await Product.findById(id);
@@ -165,7 +169,9 @@ export const deleteProduct = async (req, res) => {
   } else {
     res.status(200).send({ success: "Se eliminó el producto correctamente." });
   } */
-  const { id } = req.params;
+  const {
+    params: { id },
+  } = req;
   try {
     const product = await Product.findById(id);
     if (product) {

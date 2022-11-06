@@ -5,7 +5,9 @@ import logger from "../logs/logger.js";
 const router = Router();
 
 router.get("/", async (req, res) => {
-  const { _id } = req.user;
+  const {
+    user: { _id },
+  } = req;
   const user = await User.findById(_id);
   logger.info(
     `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
