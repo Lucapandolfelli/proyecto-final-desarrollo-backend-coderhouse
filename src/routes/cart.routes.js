@@ -9,19 +9,19 @@ import {
 
 const router = Router();
 
-// GET 🌐/api/carrito/:id/productos
-router.get("/:id/productos", getProductsByCartId);
+// [GET] 🌐/api/cart/:id/products
+router.get("/:id/products", getProductsByCartId);
 
-// POST 🌐/api/carrito
+// [POST] 🌐/api/cart
 router.post("/", createCart);
 
-// POST 🌐/api/carrito/:id/productos/:id_prod
-router.post("/:id/productos/:id_prod", createProductOfACart);
+// [POST] 🌐/api/cart/:id/products/:id_prod
+router.post("/:id/products/:id_prod", createProductOfACart);
 
-// DELETE 🌐/api/carrito/:id
+// [DELETE] 🌐/api/cart/:id
 router.delete("/:id", deleteCart);
 
-// DELETE 🌐/api/carrito/:id/productos/:id_prod
-router.delete("/:id/productos/:id_prod", deleteProductById);
+// [DELETE] 🌐/api/cart/:id/products/:id_prod
+router.delete("/:id/products/:id_prod", deleteProductById);
 
 export default router;

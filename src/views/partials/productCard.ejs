@@ -3,11 +3,16 @@
     <img src="<%= product.thubmnail %>" alt="<%= product.title %>">
   </div>
   <div class="product__content">
-    <h2><%= product.title %></h2>
+    <h3><%= product.title %></h3>
     <p><%= product.description %></p>
     <span>$<%= product.price %></span>
   </div>
-  <div class="producto__footer">
-    <button>Add to cart</button>
+  <div class="product__footer">
+    <div class="product__footer--button">
+      <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
+        <input type="hidden" name="id_prod" value="<%= product._id %>">
+        <button>Add to cart</button>
+      </form>
+    </div>
   </div>
 </article>

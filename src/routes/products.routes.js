@@ -8,16 +8,16 @@ import {
 
 const router = Router();
 
-// GET 🌐/api/productos/:id?
+// [GET] 🌐/api/products/:id?
 router.get("/:id?", getProducts);
 
-// POST 🌐/api/productos/
+// [POST] 🌐/api/products/
 router.post("/", createProduct);
 
-// PUT 🌐/api/productos/:id
+// [PUT] 🌐/api/products/:id
 router.put("/:id", updateProduct);
 
-// DELETE 🌐/api/productos/:id
+// [DELETE] 🌐/api/products/:id
 router.delete("/:id", deleteProduct);
 
 export default router;

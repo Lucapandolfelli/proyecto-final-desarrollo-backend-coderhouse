@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import logger from "../logs/logger.js";
 import { transporter, upload } from "../utils/index.js";
+import Cart from "../models/Cart.js";
 
 const router = Router();
 
@@ -47,6 +48,8 @@ router.post("/", upload.single("image"), (req, res) => {
     }
     if (!user) {
       const hashedPassword = await bcrypt.hash(password, 8);
+      const userCart = new Cart([]);
+      await userCart.save();
       const newUser = new User({
         username,
         email,
@@ -55,10 +58,11 @@ router.post("/", upload.single("image"), (req, res) => {
         image: file.filename,
         phone,
         password: hashedPassword,
+        cart_id: userCart._id,
       });
       try {
         await newUser.save();
-        const info = await transporter.sendMail(mailOptions);
+        /* const info = await transporter.sendMail(mailOptions); */
         logger.info(
           `${new Date().toLocaleString()} - Message id: ${info.messageId}`
         );

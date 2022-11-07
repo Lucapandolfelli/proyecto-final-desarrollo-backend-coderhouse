@@ -1,0 +1,48 @@
+<%- include('../partials/header.ejs', { title: 'Carrito - Tiendita' }); -%>
+
+<main>
+  <section class="cart">
+    <div class="container">
+      <div class="cart__header">
+        <h1>Carrito</h1>
+      </div>
+      <div class="cart__content">
+
+        <% if(products) { %>
+      
+          <ul class="cart__list">
+            
+            <% products.forEach(function(product){ %>
+              
+                <li class="cart__list--item">
+                  <div class="header">
+                    <img src="<%= product.thumbnail %>" alt="<%= product.title %>">
+                  </div>
+                  <div class="content">
+                    <h3><%= product.title %></h3>
+                    <p>$<%= product.price %></p>
+                  </div>
+                  <div class="footer">
+                    <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
+                      <input type="hidden" name="id_prod" value="<%= product._id %>">
+                      <button>Remove from cart</button>
+                    </form>
+                  </div>
+                </li>
+      
+            <% }); %>
+      
+            </ul>
+      
+        <% }else{ %>
+
+          <p>No products.</p>
+
+        <% } %>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs'); -%>

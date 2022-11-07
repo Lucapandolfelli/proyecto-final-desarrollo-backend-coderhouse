@@ -14,7 +14,9 @@ router.get("/", async (req, res) => {
       req.method
     } - Status: 200`
   );
-  res.status(200).render("./pages/user.ejs", { user: user });
+  res
+    .status(200)
+    .render("./pages/user.ejs", { user: user, cartId: user.cart_id });
 });
 
 export default router;

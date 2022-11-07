@@ -27,7 +27,10 @@ export const getProductsByCartId = async (req, res) => {
           req.method
         } - Status: 200`
       );
-      res.status(200).json({ products: cart.products });
+      res.status(200).render("./pages/cart.ejs", {
+        products: cart.products,
+        cartId: cart._id,
+      });
     } else {
       logger.error(
         `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
@@ -108,15 +111,18 @@ export const createProductOfACart = async (req, res) => {
     const cart = await Cart.findById(id);
     if (product) {
       if (cart) {
-        await Cart.updateOne({ _id: id, $push: { products: product } });
+        await Cart.findByIdAndUpdate(
+          { _id: id },
+          {
+            $push: { products: product },
+          }
+        );
         logger.info(
           `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
             req.method
           } - Status: 201`
         );
-        res
-          .status(201)
-          .json({ message: "Product added to cart.", newProduct: product });
+        res.status(302).redirect(`/api/cart/${id}/products`);
       } else {
         logger.error(
           `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
@@ -221,7 +227,7 @@ export const deleteProductById = async (req, res) => {
             req.method
           } - Status: 200`
         );
-        res.status(200).json({ message: "Product deleted of this cart." });
+        res.status(302).redirect(`/api/cart/${id}/products`);
       } else {
         logger.error(
           `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
