@@ -1,27 +1,21 @@
 import { Router } from "express";
-import {
-  getProductsByCartId,
-  createCart,
-  deleteCart,
-  deleteProductById,
-  createProductOfACart,
-} from "../controllers/carts.controller.js";
+import CartController from "../controllers/cart.controller.js";
 
 const router = Router();
 
 // [GET] 🌐/api/cart/:id/products
-router.get("/:id/products", getProductsByCartId);
+router.get("/:id/products", CartController.getProductsByCartId);
 
 // [POST] 🌐/api/cart
-router.post("/", createCart);
+router.post("/", CartController.createCart);
 
 // [POST] 🌐/api/cart/:id/products/:id_prod
-router.post("/:id/products/:id_prod", createProductOfACart);
+router.post("/:id/products/:id_prod", CartController.createProductOfACart);
 
 // [DELETE] 🌐/api/cart/:id
-router.delete("/:id", deleteCart);
+router.delete("/:id", CartController.deleteCartById);
 
 // [DELETE] 🌐/api/cart/:id/products/:id_prod
-router.delete("/:id/products/:id_prod", deleteProductById);
+router.delete("/:id/products/:id_prod", CartController.deleteProductById);
 
 export default router;

@@ -1,5 +1,6 @@
-import transporter from "./nodemailer.js";
+import sendMailTo from "./nodemailer.js";
 import client from "./twilio.js";
 import upload from "./multer.js";
+import logger from "./logger.js";
 
-export { transporter, client, upload };
+export { sendMailTo, client, upload, logger };

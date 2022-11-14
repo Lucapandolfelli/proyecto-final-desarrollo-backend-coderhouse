@@ -1,25 +1,13 @@
 import { Router } from "express";
 import User from "../models/User.js";
-import bcrypt from "bcrypt";
-import logger from "../logs/logger.js";
-import { transporter, upload } from "../utils/index.js";
 import Cart from "../models/Cart.js";
+import bcrypt from "bcrypt";
+import { sendMailTo } from "../utils/index.js";
 
 const router = Router();
 
-const mailOptions = {
-  from: "Tiendita",
-  to: "laury.walter@ethereal.email",
-  subject: "Nuevo registro.",
-  text: "Nuevo usuario registrado.",
-};
-
 router.get("/", (req, res) => {
-  logger.info(
-    `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
-      req.method
-    } - Status: 200`
-  );
+  logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
   res.status(200).render("./pages/register.ejs");
 });
 
@@ -31,19 +19,11 @@ router.post("/", upload.single("image"), (req, res) => {
   }
   User.findOne({ username }, async (err, user) => {
     if (err) {
-      logger.error(
-        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
-          req.method
-        } - Status: 500`
-      );
+      logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.status(500).json({ error: err?.message });
     }
     if (user) {
-      logger.error(
-        `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
-          req.method
-        } - Status: 409`
-      );
+      logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.status(409).json({ error: "User already exists." });
     }
     if (!user) {
@@ -62,12 +42,18 @@ router.post("/", upload.single("image"), (req, res) => {
       });
       try {
         await newUser.save();
-        /* const info = await transporter.sendMail(mailOptions); */
+        const info = await sendMailTo(
+          "laury.walter@ethereal.email",
+          "Nuevo registro.",
+          "Nuevo usuario registrado."
+        );
         logger.info(
           `${new Date().toLocaleString()} - Message id: ${info.messageId}`
         );
+        logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
         res.status(302).redirect("/login");
       } catch (err) {
+        logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
         res.status(500).json({ error: err?.message });
       }
     }

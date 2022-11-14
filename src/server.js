@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 import cluster from "node:cluster";
 import { cpus } from "node:os";
 import process from "node:process";
-import logger from "./logs/logger.js";
+import { logger } from "./utils/index.js";
 
 const enableExpress = () => {
   // Express
@@ -43,12 +43,10 @@ const enableExpress = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      logger.info(`${new Date().toLocaleString()} - MongoDB is connected.`);
+      logger.info(`MongoDB is connected.`);
       app.listen(PORT, () => {
         logger.info(
-          `${new Date().toLocaleString()} - 🚀 Server ${
-            process.pid
-          } running on port ${PORT}...`
+          `🚀 Server ${process.pid} running on http://localhost:${PORT}...`
         );
       });
     })
@@ -59,16 +57,12 @@ const enableCluster = () => {
   const numCPUs = cpus().length;
 
   if (cluster.isPrimary) {
-    logger.info(
-      `${new Date().toLocaleString()} - Master ${process.pid} is running.`
-    );
+    logger.info(`Master ${process.pid} is running.`);
     for (let i = 0; i < numCPUs; i++) {
       cluster.fork();
     }
     cluster.on("exit", (worker) => {
-      logger.info(
-        `${new Date().toLocaleString()} - ${worker.process.pid} is finished.`
-      );
+      logger.info(`${worker.process.pid} is finished.`);
       cluster.fork();
     });
   } else {

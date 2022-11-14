@@ -1,14 +1,10 @@
 import { Router } from "express";
 import passport from "passport";
-import logger from "../logs/logger.js";
+import { logger } from "../utils/index.js";
 const router = Router();
 
 router.get("/", (req, res) => {
-  logger.info(
-    `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
-      req.method
-    } - Status: 200`
-  );
+  logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
   res.status(200).render("./pages/login.ejs");
 });
 

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import logger from "../logs/logger.js";
+import { logger } from "../utils/index.js";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -7,11 +7,7 @@ router.get("/", (req, res) => {
     if (err) {
       console.log(err);
     }
-    logger.info(
-      `${new Date().toLocaleString()} - URL: ${req.url} - Method: ${
-        req.method
-      } - Status: ${req.statusCode}`
-    );
+    logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
     res.status(302).redirect("/");
   });
 });

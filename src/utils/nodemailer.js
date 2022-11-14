@@ -9,4 +9,14 @@ const transporter = createTransport({
   },
 });
 
-export default transporter;
+const sendMailTo = async (to, subject, text) => {
+  const mailOptions = {
+    from: process.env.NODEMAILER_FROM || "Tiendita",
+    to,
+    subject,
+    text,
+  };
+  return await transporter.sendMail(mailOptions);
+};
+
+export default sendMailTo;

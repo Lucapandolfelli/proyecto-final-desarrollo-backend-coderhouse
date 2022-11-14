@@ -1,6 +1,6 @@
 import { Router } from "express";
 import User from "../models/User.js";
-import logger from "../logs/logger.js";
+import { logger } from "../utils/index.js";
 
 const router = Router();
 
@@ -9,11 +9,7 @@ router.get("/", async (req, res) => {
     user: { _id },
   } = req;
   const user = await User.findById(_id);
-  logger.info(
-    `${new Date().toLocaleString()} - URL: ${req.baseUrl} - Method: ${
-      req.method
-    } - Status: 200`
-  );
+  logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
   res
     .status(200)
     .render("./pages/user.ejs", { user: user, cartId: user.cart_id });
