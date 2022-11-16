@@ -1,12 +1,10 @@
 import { Router } from "express";
+import UserController from "../controllers/user.controller.js";
 import passport from "passport";
-import { logger } from "../utils/index.js";
+
 const router = Router();
 
-router.get("/", (req, res) => {
-  logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-  res.status(200).render("./pages/login.ejs");
-});
+router.get("/", UserController.renderLoginView);
 
 router.post(
   "/",

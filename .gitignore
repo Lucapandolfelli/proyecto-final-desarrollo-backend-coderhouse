@@ -11,3 +11,6 @@ node_modules/
 
 # Ignore config.js file
 /src/config.js
+
+# Ignore the uploads folder
+/public/uploads
