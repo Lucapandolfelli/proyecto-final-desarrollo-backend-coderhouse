@@ -23,7 +23,7 @@
                     <p>$<%= product.price %></p>
                   </div>
                   <div class="footer">
-                    <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
+                    <form action="/api/cart/<%= cartId %>/products/<%= product._id %>/delete" method="POST">
                       <input type="hidden" name="id_prod" value="<%= product._id %>">
                       <button>Remove from cart</button>
                     </form>

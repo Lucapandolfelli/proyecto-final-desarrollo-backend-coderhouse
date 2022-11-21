@@ -1,11 +1,11 @@
-import CartDAO from "../dao/cart.dao.js";
+import { CartDAO } from "../daos/index.js";
 
 class CartService {
   constructor() {}
 
   async getCartById(cart_id) {
     try {
-      return await CartDAO.getCartById(cart_id);
+      return await CartDAO.getById(cart_id);
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -13,7 +13,7 @@ class CartService {
 
   async createCart(cart) {
     try {
-      return await CartDAO.createCart(cart);
+      return await CartDAO.create(cart);
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -29,7 +29,7 @@ class CartService {
 
   async deleteCartById(cart_id) {
     try {
-      return await CartDAO.deleteCartById(cart_id);
+      return await CartDAO.deleteById(cart_id);
     } catch (err) {
       throw new Error(err?.message);
     }

@@ -1,11 +1,11 @@
-import ProductDAO from "../dao/product.dao.js";
+import { ProductDAO } from "../daos/index.js";
 
 class ProductService {
   constructor() {}
 
   async getAllProducts() {
     try {
-      return await ProductDAO.getAllProducts();
+      return await ProductDAO.getAll();
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -13,7 +13,7 @@ class ProductService {
 
   async getProductById(id_prod) {
     try {
-      return await ProductDAO.getProductById(id_prod);
+      return await ProductDAO.getById(id_prod);
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -21,7 +21,7 @@ class ProductService {
 
   async createProduct(product) {
     try {
-      return await ProductDAO.createProduct(product);
+      return await ProductDAO.create(product);
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -29,7 +29,7 @@ class ProductService {
 
   async updateProduct(id_prod, product) {
     try {
-      return await ProductDAO.updateProduct(id_prod, product);
+      return await ProductDAO.updateById(id_prod, product);
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -37,7 +37,7 @@ class ProductService {
 
   async deleteProductById(id_prod) {
     try {
-      return await ProductDAO.deleteProductById(id_prod);
+      return await ProductDAO.deleteById(id_prod);
     } catch (err) {
       throw new Error(err?.message);
     }

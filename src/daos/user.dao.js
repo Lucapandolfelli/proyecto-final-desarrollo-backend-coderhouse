@@ -1,12 +1,13 @@
 import User from "../models/User.js";
 
 class UserDAO {
-  constructor() {}
+  constructor() {
+    this.collection = User;
+  }
 
   async getUserByUsername(username) {
     try {
-      const user = await User.findOne({ username });
-      return user;
+      return await this.collection.findOne({ username });
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -14,8 +15,7 @@ class UserDAO {
 
   async getUserById(user_id) {
     try {
-      const user = await User.findById(user_id);
-      return user;
+      return await this.collection.findById(user_id);
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -23,8 +23,7 @@ class UserDAO {
 
   async createUser(user) {
     try {
-      const createdUser = await new User(user).save();
-      return createdUser;
+      return await new this.collection(user).save();
     } catch (err) {
       throw new Error(err?.message);
     }

@@ -15,7 +15,7 @@ router.post("/:id/products/:id_prod", CartController.createProductOfACart);
 // [DELETE] 🌐/api/cart/:id
 router.delete("/:id", CartController.deleteCartById);
 
-// [DELETE] 🌐/api/cart/:id/products/:id_prod
-router.delete("/:id/products/:id_prod", CartController.deleteProductById);
+// [DELETE] 🌐/api/cart/:id/products/:id_prod/delete
+router.post("/:id/products/:id_prod/delete", CartController.deleteProductById);
 
 export default router;

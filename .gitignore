@@ -6,7 +6,6 @@ node_modules/
 
 # Ignore the following folders: containers, daos, db
 /src/containers/
-/src/daos/
 /src/db/
 
 # Ignore config.js file

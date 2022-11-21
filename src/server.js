@@ -33,15 +33,12 @@ const enableExpress = () => {
 
   // View Engine
   app.set("view engine", "ejs");
-  app.set("views", "./src/views");
+  app.set("views", "./public/views");
 
   // Server
   const PORT = process.env.PORT || 8080;
   mongoose
-    .connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
+    .connect(process.env.MONGODB_URI)
     .then(() => {
       logger.info(`MongoDB is connected.`);
       app.listen(PORT, () => {

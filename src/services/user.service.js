@@ -1,4 +1,4 @@
-import UserDAO from "../dao/user.dao.js";
+import { UserDAO } from "../daos/index.js";
 import CartService from "../services/cart.service.js";
 import bcrypt from "bcrypt";
 
@@ -43,7 +43,7 @@ class UserService {
           password: hashedPassword,
           cart_id: userCart._id,
         };
-        return await UserDAO.createUser(newUser);
+        return await UserDAO.create(newUser);
       }
     } catch (err) {
       throw new Error(err?.message);
