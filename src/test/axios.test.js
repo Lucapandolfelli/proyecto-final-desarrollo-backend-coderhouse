@@ -1,6 +1,6 @@
 import http from "http";
 import AxiosTest from "../classes/AxiosTest.js";
-const axios = new AxiosTest();
+const axios = new AxiosTest("http://localhost", "/api/products");
 
 // [GET] /api/products
 const getAllProductsRequest = http.request(
