@@ -1,1 +1,7 @@
 
+2022-11-23T02:41:38.722Z [31merror[39m: [31mInvalid URL[39m
+2022-11-23T02:42:07.020Z [31merror[39m: [31mconnect ECONNREFUSED ::1:3000[39m
+2022-11-23T02:42:33.581Z [31merror[39m: [31mconnect ECONNREFUSED ::1:3000[39m
+2022-11-23T02:44:11.935Z [31merror[39m: [31mInvalid URL[39m
+2022-11-23T02:44:18.486Z [31merror[39m: [31mInvalid URL[39m
+2022-11-23T03:43:36.275Z [31merror[39m: [31mDELETE /api/products/637d9492a0bd8ae9a2420dab 200[39m

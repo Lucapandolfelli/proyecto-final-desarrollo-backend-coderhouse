@@ -5,6 +5,7 @@
   "main": "./src/server.js",
   "type": "module",
   "scripts": {
+    "test": "mocha ./src/test/products.test.js",
     "dev": "nodemon -r dotenv/config ./src/server.js",
     "start": "node -r dotenv/config ./src/server.js"
   },
@@ -12,6 +13,7 @@
   "author": "Luca Pandolfelli",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.2.0",
     "bcrypt": "5.1.0",
     "compression": "1.7.4",
     "cookie-parser": "1.4.6",
@@ -29,6 +31,9 @@
     "winston": "3.8.2"
   },
   "devDependencies": {
-    "nodemon": "2.0.19"
+    "chai": "^4.3.7",
+    "mocha": "^10.1.0",
+    "nodemon": "2.0.19",
+    "supertest": "^6.3.1"
   }
 }

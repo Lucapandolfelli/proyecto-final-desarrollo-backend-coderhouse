@@ -14,3 +14,10 @@
 2022-11-16T12:29:40.720Z [33mwarn[39m: [33mPOST /register 200[39m
 2022-11-16T13:23:36.344Z [33mwarn[39m: [33mPOST /api/cart/63682b9f488fdec5138f3224/products/6362ecbcb15ecd7d1bd4c70c_delete 200[39m
 2022-11-17T13:21:51.786Z [33mwarn[39m: [33mPOST /api/cart/63682b9f488fdec5138f3224/products/6362ecb5b15ecd7d1bd4c70a 200[39m
+2022-11-23T02:41:38.722Z [31merror[39m: [31mInvalid URL[39m
+2022-11-23T02:42:07.020Z [31merror[39m: [31mconnect ECONNREFUSED ::1:3000[39m
+2022-11-23T02:42:33.581Z [31merror[39m: [31mconnect ECONNREFUSED ::1:3000[39m
+2022-11-23T02:44:11.935Z [31merror[39m: [31mInvalid URL[39m
+2022-11-23T02:44:18.486Z [31merror[39m: [31mInvalid URL[39m
+2022-11-23T03:43:36.275Z [31merror[39m: [31mDELETE /api/products/637d9492a0bd8ae9a2420dab 200[39m
+2022-11-23T03:43:36.279Z [33mwarn[39m: [33mDELETE /api/products/637d9492a0bd8ae9a2420dab 200[39m
