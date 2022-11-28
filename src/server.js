@@ -3,6 +3,7 @@ import router from "./routes/index.routes.js";
 import session from "express-session";
 import mongoose from "mongoose";
 import passport from "passport";
+import cors from "cors";
 import "./middleware/passport.js";
 import compression from "compression";
 import cookieParser from "cookie-parser";
@@ -17,6 +18,7 @@ const enableExpress = () => {
   // Middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(cors());
   app.use(express.static("public"));
   app.use(compression());
   app.use(cookieParser("coderhouse"));
