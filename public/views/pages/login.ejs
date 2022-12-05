@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Tiendita</title>
-</head>
-<body>
-  <main>
-    <section class="login">
-      <div class="container">
-        <div class="login__header">
+<%- include('../partials/header.ejs', { title: 'Login - Tiendita', showNavbar: false }); -%>
+
+<main>
+  <section class="login" style="background-color: #2e3338;">
+    <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+      <div class="text-white bg-dark" style="width: 400px; padding: 5rem 3rem; border-radius: 2rem;">
+        <div class="text-center mb-5">
           <h2>Login</h2>
         </div>
-        <div class="login__form">
+        <div class="mb-4">
           <form action="/login" method="POST">
-            <div class="field">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email">
+            <div class="mb-3">
+              <label class="form-label" for="email">Email</label>
+              <input class="form-control" type="email" name="email" id="email">
             </div>
-            <div class="field">
-              <label for="password">Contraseña</label>
-              <input type="password" name="password" id="password">
+            <div class="mb-4">
+              <label class="form-label" for="password">Contraseña</label>
+              <input class="form-control" type="password" name="password" id="password">
             </div>
-            <button>Login</button>
+            <button class="btn btn-primary w-100">Login</button>
           </form>
-          <span>You're not register yet? <a href="/register">Do it here!</a></span>
         </div>
+        <span style="font-size: .85rem;">You're not register yet? <a href="/register">Do it here!</a></span>
       </div>
-    </section>
-  </main>
-</body>
-</html>
+    </div>
+  </section>
+</main>
+
+
 

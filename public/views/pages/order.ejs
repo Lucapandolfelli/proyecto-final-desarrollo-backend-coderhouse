@@ -1,0 +1,43 @@
+<%- include('../partials/header.ejs', { title: 'Mis Compras - Tiendita', showNavbar: true }); -%>
+
+<main>
+  <section class="orders py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h1>Mis Compras</h1>
+      </div>
+      <div class="d-flex justify-content-center">
+
+        <% if(orders.length > 0) { %>
+      
+          <ul class="list-unstyled d-flex justify-content-center align-items-center gap-4 flex-wrap flex-column">
+            
+            <% orders.forEach(function(order){ %>
+              
+                <div class="border rounded d-flex justify-content-between align-items-center gap-5 px-5 py-4" style="width: 800px;">
+                  <div class="">
+                    <h3 class="fw-semibold">Compra #<%= order._id %></h3>
+                    <p class="fw-semibold">Fecha: <span><%= order.purchase_date.day %> <%= order.purchase_date.number %>, <%= order.purchase_date.month %> <%= order.purchase_date.year %></span></p>
+                  </div>
+                  <a href="/api/order/<%= order._id%>" class="btn rounded-3 border border-dark site_button">Ver Compra</a>
+                </div>
+      
+            <% }); %>
+
+            </ul>
+      
+        <% }else{ %>
+
+          <div class="border rounded p-5 d-flex flex-column justify-content-center align-items-center" style="width: 800px;">
+            <p class="m-0 fs-4">Todavía no tienes ninguna compra realizada.</p>
+            <span>¿Qué estas esperando? <a class="text-danger text-decoration-none" href="/">Mira nuestros productos!</a></span>
+          </div>
+
+        <% } %>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs', { showFooter: true }); -%>

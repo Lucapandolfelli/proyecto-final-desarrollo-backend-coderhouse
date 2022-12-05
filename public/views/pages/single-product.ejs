@@ -1,0 +1,41 @@
+<%- include('../partials/header.ejs', { title: 'Home - Tiendita', cartId: cartId, showNavbar: true }); -%>
+
+<main>
+  <section class="single_product py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 border-left border-end">
+          <img src="/images/<%= product.thumbnail %>" class="card-img-top bg-light" alt="<%= product.title %>" style="width: 510px;">
+        </div>
+        <div class="col-md-6 d-flex justify-content-center flex-column ps-5">
+          <a class="bg-dark p-1 text-decoration-none rounded mb-5 text-light category_button" href="/api/products/category/<%= product.category %>" style="font-size: .85rem; transition: all .3s ease; width: fit-content;"><%= product.category %></a>
+          <h1 class="mb-3 fs-1 fw-lighter"><%= product.title %></h1>
+          <p class="card-text fs-1 m-0 mb-4"><i class="fa-thin fa-dollar-sign"></i><%= product.price %></p>
+          <p class="mb-4"><%= product.description %></p>
+          <div class="mb-5">
+            <p class="fw-bold">Stock disponible</p>
+            <div class="d-flex align-items-center gap-2">
+              <select class="form-select" name="stock" id="stock" aria-label="Cantidad" style="width: 150px;">
+                <option value="1">1 unidad</option>
+                <option value="2">2 unidades</option>
+              </select>
+              <span style="font-size: .85rem;">de <%= product.stock %> disponibles</span>
+            </div>
+          </div>
+          <div class="d-flex gap-3">
+            <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
+              <input type="hidden" name="id_prod" value="<%= product._id %>">
+              <button class="btn rounded-3 border border-dark site_button">Añadir al carrito</button>
+            </form>
+            <form action="/api/order" method="POST">
+              <input type="hidden" name="products" value="<%=  %>">
+              <button class="btn rounded-3 border border-dark site_button">Comprar ahora</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs', { showFooter: true }); -%>

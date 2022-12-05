@@ -8,6 +8,8 @@ router.get("/", (req, res) => {
       console.log(err);
     }
     logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+    res.clearCookie("cartIdCookie");
+    res.clearCookie("categoriesCookie");
     res.status(302).redirect("/");
   });
 });

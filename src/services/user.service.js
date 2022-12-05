@@ -32,7 +32,11 @@ class UserService {
 
       if (!user) {
         const hashedPassword = await bcrypt.hash(password, 8); // Encrypting the password
-        const userCart = await CartService.createCart([]); // Create a cart for this user
+        const userCart = await CartService.createCart({
+          email: email,
+          products: [],
+          delivery_address: address,
+        }); // Create a cart for this user
         const newUser = {
           username,
           email,
@@ -43,7 +47,7 @@ class UserService {
           password: hashedPassword,
           cart_id: userCart._id,
         };
-        return await UserDAO.create(newUser);
+        return await UserDAO.createUser(newUser);
       }
     } catch (err) {
       throw new Error(err?.message);

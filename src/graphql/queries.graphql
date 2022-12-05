@@ -1,0 +1,27 @@
+# Products Queries
+query GetAllProducts {
+  getAllProducts {
+    _id
+    title
+    price
+    category
+  }
+}
+
+query GetProductById {
+  getProductById(_id: "63896aaeb770520f3ee46205") {
+    title
+    price
+    category
+  }
+}
+
+# Cart Queries
+query GetCartById {
+  getCartById(_id: "63896af0845cf5973fdde131") {
+    products {
+      _id
+      title
+    }
+  }
+}

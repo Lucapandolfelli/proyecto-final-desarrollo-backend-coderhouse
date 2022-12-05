@@ -1,0 +1,80 @@
+# Cart Mutations
+mutation CreateCart {
+  createCart(
+    email: "email@gmail.com"
+    products: []
+    delivery_address: "av 9 de julio"
+  ) {
+    _id
+    products
+    email
+  }
+}
+
+# Not working
+mutation CreateProductOfACart {
+  createProductOfACart(
+    _id: "638e0b8d863ddc5546634339"
+    product: {
+      _id: "638e0ccb3f48fc4ae9db225a"
+      title: "Producto 1"
+      description: "Descripción del producto"
+      category: "Remeras"
+      thumbnail: "producto.jpg"
+      price: 3200
+      stock: 5
+      in_cart: 0
+    }
+  ) {
+    products
+  }
+}
+
+mutation DeleteCartById {
+  deleteCartById(_id: "638a160d129ceca65ec74ab2") {
+    email
+    delivery_address
+    products {
+      title
+      price
+      stock
+    }
+  }
+}
+
+# Not working
+mutation DeleteProductByCartId {
+  deleteProductByCartId(
+    cart_id: "63896af0845cf5973fdde131"
+    product_id: "63896aaeb770520f3ee46205"
+  ) {
+    title
+    price
+    stock
+  }
+}
+
+# Product Mutations
+mutation CreateProduct {
+  createProduct(
+    title: "Producto 1"
+    description: "Descripción del producto"
+    category: "Remeras"
+    thumbnail: "producto.jpg"
+    price: 3200
+    stock: 5
+  ) {
+    _id
+    title
+    price
+    stock
+  }
+}
+
+mutation DeleteProductById {
+  deleteProductById(_id: "63896aaeb770520f3ee46205") {
+    title
+    stock
+    price
+  }
+}

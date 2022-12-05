@@ -1,0 +1,27 @@
+<div class="border rounded d-flex overflow-hidden" style="height: 100px; width: 800px;">
+  <div class="header" style="width: 200px; height: 200px;">
+    <img src="/images/<%= product.thumbnail %>" style="height: 100%; width: 100%; object-fit: cover;" alt="<%= product.title %>">
+  </div>
+  <div class="p-3 d-flex flex-column justify-content-center">
+    <div class="d-flex align-items-center">
+      <h3 class="fs-4 fw-lighter mb-0"><%= product.title %> <span class="fs-5 fw-normal">x <%= product.in_cart %></span></h3>
+      <p class="fs-3 mb-0" style="margin-left: 300px;">$<%= product.price * product.in_cart %></p>
+    </div>
+    
+    <% if(showButtons === true ){ %>
+
+      <div class="d-flex align-items-center gap-3">
+        <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
+          <input type="hidden" name="id_prod" value="<%= product._id %>">
+          <button class="border-0 bg-transparent p-0 text-danger cart_button" style="transition: all .3s ease;">Añadir otro producto</button>
+        </form>
+        <form action="/api/cart/<%= cartId %>/products/<%= product._id %>/delete" method="POST">
+          <input type="hidden" name="id_prod" value="<%= product._id %>">
+          <button class="border-0 bg-transparent p-0 text-danger cart_button" style="transition: all .3s ease;">Eliminar del carrito</button>
+        </form>
+      </div>
+
+    <% } %>
+
+  </div>
+</div>

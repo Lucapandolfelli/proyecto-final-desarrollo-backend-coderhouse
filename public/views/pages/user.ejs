@@ -1,22 +1,27 @@
-<%- include('../partials/header.ejs', { title: 'User - Tiendita' }); -%>
+<%- include('../partials/header.ejs', { title: 'User - Tiendita', showNavbar: true }); -%>
 
 <main>
-  <section class="user">
+  <section class="user py-5">
     <div class="container">
-      <div class="user__header" style="height: 200px; width: 200px;">
-        <img src="uploads/<%= user.image %>" alt="<%= user.username %>" style="width: 100%; height: 100%; object-fit: cover;"> 
-      </div>
-      <div class="user__content">
-        <ul class="user__content--list">
-          <h2>Bienvenido, <%= user.username %> !</h2>
-          <li>Email: <%= user.email %></li>
-          <li>Dirección: <%= user.address %></li>
-          <li>Edad: <%= user.age %></li>
-          <li>Telefono: <%= user.phone %></li>
-        </ul>
+      <div class="d-flex justify-content-center gap-5">
+        <div class="" style="height: 300px; width: 300px;">
+          <img src="uploads/<%= user.image %>" alt="<%= user.username %>" style="width: 100%; height: 100%; object-fit: cover;"> 
+        </div>
+        <div class="user__content">
+          <h2 class="mb-4">Bienvenido, <%= user.username %> !</h2>
+          <div class="border border-dark p-5 rounded">
+            <h4 class="mb-4">Información del usuario</h4>
+            <ul class="list-unstyled d-flex flex-column gap-3">
+              <li>Email: <%= user.email %></li>
+              <li>Dirección: <%= user.address %></li>
+              <li>Edad: <%= user.age %></li>
+              <li>Telefono: <%= user.phone %></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
-<%- include('../partials/footer.ejs'); -%>
+<%- include('../partials/footer.ejs', { showFooter: true }); -%>

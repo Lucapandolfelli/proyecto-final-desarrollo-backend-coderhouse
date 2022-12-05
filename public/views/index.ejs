@@ -1,16 +1,16 @@
-<%- include('./partials/header.ejs', { title: 'Home - Tiendita', cartId: cartId }); -%>
+<%- include('./partials/header.ejs', { title: 'Home - Tiendita', cartId: cartId, showNavbar: true, categories: categories }); -%>
 
 <main>
-  <section class="products">
+  <section class="products py-5">
     <div class="container">
-      <div class="products__header">
-        <h2>Productos</h2>
+      <div class="text-center mb-5">
+        <h1><%= sectionTitle %></h1>
       </div>
-      <div class="products__list">
+      <div class="d-flex justify-content-center">
 
-        <% if(products) { %>
+        <% if(products.length > 0) { %>
       
-          <ul class="products-list">
+          <ul class="list-unstyled d-flex justify-content-center align-items-center gap-4 flex-wrap">
             
             <% products.forEach(function(product){ %>
               
@@ -24,7 +24,9 @@
       
         <% }else{ %>
 
-          <p>No products.</p>
+          <div class="border rounded p-5 d-flex flex-column justify-content-center align-items-center" style="width: 800px;">
+            <p class="m-0 fs-4">Lo siento! No se encontraron productos.</p>
+          </div>
 
         <% } %>
 
@@ -33,4 +35,4 @@
   </section>
 </main>
 
-<%- include('./partials/footer.ejs'); -%>
+<%- include('./partials/footer.ejs', { showFooter: true }); -%>

@@ -1,42 +1,47 @@
-<%- include('../partials/header.ejs', { title: 'Carrito - Tiendita' }); -%>
+<%- include('../partials/header.ejs', { title: 'Carrito - Tiendita', showNavbar: true }); -%>
 
 <main>
-  <section class="cart">
+  <section class="cart py-5">
     <div class="container">
-      <div class="cart__header">
+      <div class="text-center mb-5">
         <h1>Carrito</h1>
       </div>
-      <div class="cart__content">
+      <div class="d-flex justify-content-center" >
 
-        <% if(products) { %>
+        <% if(products.length > 0) { %>
       
-          <ul class="cart__list">
+          <ul class="list-unstyled d-flex justify-content-center align-items-center gap-4 flex-wrap flex-column" style="width: 800px;">
             
             <% products.forEach(function(product){ %>
               
-                <li class="cart__list--item">
-                  <div class="header">
-                    <img src="<%= product.thumbnail %>" alt="<%= product.title %>">
-                  </div>
-                  <div class="content">
-                    <h3><%= product.title %></h3>
-                    <p>$<%= product.price %></p>
-                  </div>
-                  <div class="footer">
-                    <form action="/api/cart/<%= cartId %>/products/<%= product._id %>/delete" method="POST">
-                      <input type="hidden" name="id_prod" value="<%= product._id %>">
-                      <button>Remove from cart</button>
-                    </form>
-                  </div>
-                </li>
+                <%- include('../partials/cart-card.ejs', { product, cartId, showButtons: true }); -%>
       
             <% }); %>
-      
+
+              <div class="w-100 border rounded px-5 d-flex justify-content-between align-items-center" style="height: 100px;">
+                <h4 class="fw-lighter">Total de la compra</h4>
+                <p class="fs-2">$<%= %></p>
+              </div>
+            
+              <div class="w-100 border rounded px-5 py-3 d-flex justify-content-center align-items-center gap-3">
+                <form action="/api/cart/<%= cartId %>/delete" method="POST">
+                  <button class="btn rounded-3 border border-dark site_button">Eliminar Carrito</button>
+                </form>
+                <form action="/api/order" method="POST">
+                  <input type="hidden" name="products" value="">
+                  <input type="hidden" name="state" value="Generada">
+                  <input type="hidden" name="buyer_email" value="">
+                  <button class="btn rounded-3 border border-dark site_button">Continuar Compra</button>
+                </form>
+              </div>
             </ul>
       
         <% }else{ %>
 
-          <p>No products.</p>
+          <div class="border rounded p-5 d-flex flex-column justify-content-center align-items-center" style="width: 800px;">
+            <p class="m-0 fs-4">Tu carrito está vacío.</p>
+            <span>¿No sabés que comprar? <a class="text-danger text-decoration-none" href="/">Mira nuestros productos!</a></span>
+          </div>
 
         <% } %>
 
@@ -45,4 +50,4 @@
   </section>
 </main>
 
-<%- include('../partials/footer.ejs'); -%>
+<%- include('../partials/footer.ejs', { showFooter: true }); -%>

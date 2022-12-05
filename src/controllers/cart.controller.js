@@ -18,7 +18,8 @@ class CartController {
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.status(200).render("./pages/cart.ejs", {
         products: cart.products,
-        cartId: cart._id,
+        cartId: req.cookies.cartIdCookie,
+        categories: req.cookies.categoriesCookie,
       });
     } catch (err) {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
@@ -81,7 +82,7 @@ class CartController {
       }
       await CartService.deleteCartById(id);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).json({ message: "Deleted." });
+      res.status(200).redirect(`/api/cart/${id}/products`);
     } catch (err) {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.status(500).json({ error: err?.message });
@@ -103,7 +104,7 @@ class CartController {
           res.status(404).json({ error: "Cart not found." });
         }
       }
-      await CartService.deleteProductById(id, id_prod);
+      await CartService.deleteProductByCartId(id, id_prod);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.status(302).redirect(`/api/cart/${id}/products`);
     } catch (err) {

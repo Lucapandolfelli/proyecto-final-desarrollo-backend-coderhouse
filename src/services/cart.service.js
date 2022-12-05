@@ -21,6 +21,15 @@ class CartService {
 
   async createProductOfACart(cart_id, product) {
     try {
+      let { products } = await this.getCartById(cart_id);
+      const productInCart = products.find((item) =>
+        item._id.equals(product._id)
+      );
+      if (!productInCart) {
+        product.in_cart = 1;
+        return await CartDAO.createProductOfACart(cart_id, product);
+      }
+      product.in_cart = productInCart.in_cart + 1;
       return await CartDAO.createProductOfACart(cart_id, product);
     } catch (err) {
       throw new Error(err?.message);
@@ -29,15 +38,23 @@ class CartService {
 
   async deleteCartById(cart_id) {
     try {
-      return await CartDAO.deleteById(cart_id);
+      return await CartDAO.deleteCartById(cart_id);
     } catch (err) {
       throw new Error(err?.message);
     }
   }
 
-  async deleteProductById(cart_id, prod_id) {
+  async deleteProductByCartId(cart_id, prod_id) {
     try {
-      return await CartDAO.deleteProductById(cart_id, prod_id);
+      return await CartDAO.deleteProductByCartId(cart_id, prod_id);
+    } catch (err) {
+      throw new Error(err?.message);
+    }
+  }
+
+  async deleteProductOfAllCartsById(prod_id) {
+    try {
+      return await CartDAO.deleteProductOfAllCartsById(prod_id);
     } catch (err) {
       throw new Error(err?.message);
     }

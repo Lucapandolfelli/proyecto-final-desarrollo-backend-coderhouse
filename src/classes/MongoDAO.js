@@ -1,9 +1,6 @@
-import MongoClient from "../config/MongoClient.js";
-
 class MongoDAO {
   constructor(model) {
     this.model = model;
-    /* this.connection = new MongoClient(); */
   }
 
   async getById(id) {
@@ -16,7 +13,7 @@ class MongoDAO {
 
   async getAll() {
     try {
-      return await this.model.find();
+      return await this.model.find({});
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -24,7 +21,9 @@ class MongoDAO {
 
   async create(item) {
     try {
-      return await new this.model(item).save();
+      const newItem = new this.model(item);
+      await newItem.save();
+      return newItem;
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -40,7 +39,9 @@ class MongoDAO {
 
   async deleteById(id) {
     try {
-      return await this.model.findByIdAndDelete(id);
+      const item = await this.getById(id);
+      await this.model.deleteOne({ _id: id });
+      return item;
     } catch (err) {
       throw new Error(err?.message);
     }

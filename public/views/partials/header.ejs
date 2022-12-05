@@ -5,21 +5,74 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .product_card:hover{
+      transform: scale(1.0125);
+    }
+    .category_button:hover{
+      background-color: #2f343a !important;
+    }
+    .cart_button{
+      font-size: .85rem;
+    }
+    .cart_button:hover{
+      color: #a82431 !important;
+    }
+    .site_button{
+      transition: all .3s ease;
+    }
+    .site_button:hover{
+      background-color: #212529;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="navbar__brand">
-        <h1>Tiendita</h1>
-      </div>
-      <ul class="navbar__menu">
-        <li class="navbar__menu--item"><a href="/">Home</a></li>
-        <!-- <li class="navbar__menu--item"><a href="/api/products">Productos</a></li> -->
-        <li class="navbar__menu--item"><a href="/api/cart/<%= cartId %>/products">Carrito</a></li>
-        <li class="navbar__menu--item"><a href="/user">Profile</a></li>
-        <li class="navbar__menu--item"><a href="/logout">Logout</a></li>
-      </ul>
-    </nav>
-  </header>
+  
+  <% if (showNavbar === true) { %>
 
-  <hr>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 80px;">
+        <div class="container">
+          <a class="navbar-brand" href="/"><i class="fa-solid fa-shop me-2"></i>Tiendita</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse mx-auto" id="navbarNavAltMarkup">
+            <ul class="navbar-nav ms-auto d-flex align-items-center">
+              <li class="nav-item"><a class="nav-link" href="/">Productos</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorias
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                  <% categories.forEach(function(category){ %>  
+
+                    <li><a class="dropdown-item" href="/api/products/category/<%= category.name %>"><%= category.name %></a></li>
+
+                  <% }); %>
+      
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="/api/cart/<%= cartId %>/products"><i class="fa-solid fa-cart-shopping"></i></a></li>
+              <li class="nav-item dropdown ms-2 d-flex justify-content-center align-items-center rounded-circle bg-light" style="width: 30px; height: 30px;">
+                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-user text-dark"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/user">Mi Cuenta</a></li>
+                  <li><a class="dropdown-item" href="/api/order">Mis Compras</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+  <% } %>

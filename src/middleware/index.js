@@ -1,4 +1,4 @@
-import checkAdmin from "./checkAdmin.js";
-import isAuth from "./isAuth.js";
+import isAuth from "./isAuth.js"; // session middleware with express-session
+import auth from "./auth.js"; // session middleware with jwt
 
-export { checkAdmin, isAuth };
+export { isAuth, auth };

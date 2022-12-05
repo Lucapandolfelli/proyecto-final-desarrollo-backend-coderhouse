@@ -13,7 +13,7 @@ router.post("/", CartController.createCart);
 router.post("/:id/products/:id_prod", CartController.createProductOfACart);
 
 // [DELETE] 🌐/api/cart/:id
-router.delete("/:id", CartController.deleteCartById);
+router.post("/:id/delete", CartController.deleteCartById);
 
 // [DELETE] 🌐/api/cart/:id/products/:id_prod/delete
 router.post("/:id/products/:id_prod/delete", CartController.deleteProductById);

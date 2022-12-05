@@ -1,0 +1,32 @@
+<%- include('../partials/header.ejs', { title: 'Mi Compra - Tiendita', showNavbar: true }); -%>
+
+<main>
+  <section class="order py-5">
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="border rounded d-flex flex-column p-5">
+        <div>
+          <h2 class="mb-3">Compra #<%= order._id %></h2>
+          <p class="fw-semibold">Fecha: <span><%= order.purchase_date.day %> <%= order.purchase_date.number %>, <%= order.purchase_date.month %> <%= order.purchase_date.year %></span></p>
+        </div>
+        <hr>
+        <div class="my-4">
+          <h3 class="mb-4">Productos</h3>
+          <div class="d-flex flex-column gap-4">
+            <% order.products.forEach(function(product){ %>
+              
+              <%- include('../partials/cart-card.ejs', { product, cartId, showButtons: false }); -%>
+    
+            <% }); %>
+          </div>
+        </div>
+        <hr>
+        <div class="mt-4 border rounded px-5 d-flex justify-content-between align-items-center" style="height: 100px;">
+          <h4 class="fw-lighter">Total de la compra</h4>
+          <p class="fs-1">$<%= order.total %></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs', { showFooter: true }); -%>

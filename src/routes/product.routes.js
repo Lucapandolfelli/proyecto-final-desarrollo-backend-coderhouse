@@ -6,6 +6,9 @@ const router = Router();
 // [GET] 🌐/api/products/:id?
 router.get("/:id?", ProductController.getProducts);
 
+// [GET] 🌐/api/products/:category
+router.get("/category/:category", ProductController.getProductsByCategoryName);
+
 // [POST] 🌐/api/products/
 router.post("/", ProductController.createProduct);
 

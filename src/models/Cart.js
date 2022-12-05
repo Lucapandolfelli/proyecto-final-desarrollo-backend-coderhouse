@@ -1,9 +1,11 @@
 import { Schema, model } from "mongoose";
-import { productSchema } from "./Product.js";
+import { ProductSchema } from "./Product.js";
 
 const cartSchema = new Schema(
   {
-    products: { type: [productSchema], require: true },
+    email: { type: String, require: true },
+    products: { type: [ProductSchema], require: true },
+    delivery_address: { type: String, require: true },
   },
   {
     timestamps: true,

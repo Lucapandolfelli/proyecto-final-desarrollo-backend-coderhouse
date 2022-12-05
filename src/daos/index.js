@@ -15,9 +15,11 @@ import CartDaoFirebase from "./cart/CartDaoFirebase.js";
 // Mongo DAO
 import ProductDaoMongo from "./product/ProductDaoMongo.js";
 import CartDaoMongo from "./cart/CartDaoMongo.js";
+import OrderDaoMongo from "./order/OrderDaoMongo.js";
 
 let ProductDAO = null;
 let CartDAO = null;
+let OrderDAO = null;
 
 const PERS = process.env.PERS || "mongo";
 
@@ -40,7 +42,8 @@ switch (PERS) {
   case "mongo":
     ProductDAO = ProductDaoMongo.getInstance();
     CartDAO = CartDaoMongo.getInstance();
+    OrderDAO = OrderDaoMongo.getInstance();
     break;
 }
 
-export { ProductDAO, CartDAO, UserDAO };
+export { ProductDAO, CartDAO, UserDAO, OrderDAO };

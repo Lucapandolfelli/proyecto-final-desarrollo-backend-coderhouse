@@ -1,18 +1,12 @@
-<article class="product">
-  <div class="product__image">
-    <img src="<%= product.thubmnail %>" alt="<%= product.title %>">
-  </div>
-  <div class="product__content">
-    <h3><%= product.title %></h3>
-    <p><%= product.description %></p>
-    <span>$<%= product.price %></span>
-  </div>
-  <div class="product__footer">
-    <div class="product__footer--button">
-      <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
-        <input type="hidden" name="id_prod" value="<%= product._id %>">
-        <button>Add to cart</button>
-      </form>
+<a href="/api/products/<%= product._id %>" class="text-decoration-none text-dark">
+  <div class="card product_card position-relative overflow-hidden" style="width: 18rem; transition: all .2s ease;">
+    <img src="/images/<%= product.thumbnail %>" class="card-img-top bg-light" alt="<%= product.title %>" style="height: 300px; object-fit: cover;">
+    <div class="card-body bg-light">
+      <p class="card-text fs-3 m-0"><i class="fa-thin fa-dollar-sign"></i><%= product.price %></p>
+      <h5 class="card-title mb-3 fw-lighter"><%= product.title %></h5>
+      <a class="position-absolute top-0 end-0 bg-dark p-1 text-decoration-none text-light category_button" href="/api/products/category/<%= product.category %>" style="font-size: .85rem; transition: all .3s ease;"><%= product.category %></a>
     </div>
   </div>
-</article>
+</a>
+
+

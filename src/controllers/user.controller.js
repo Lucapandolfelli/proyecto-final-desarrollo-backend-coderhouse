@@ -34,9 +34,11 @@ class UserController {
       const user = await UserService.getUserById(_id);
 
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res
-        .status(200)
-        .render("./pages/user.ejs", { user: user, cartId: user.cart_id });
+      res.status(200).render("./pages/user.ejs", {
+        user: user,
+        cartId: user.cart_id,
+        categories: req.cookies.categoriesCookie,
+      });
     } catch (err) {
       logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.status(500).json({ error: err?.message });
