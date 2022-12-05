@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { upload } from "../utils/index.js";
+import { upload } from "../config/multer.js";
 import UserController from "../controllers/user.controller.js";
 
-const router = Router();
+const registerRouter = Router();
 
-router.get("/", UserController.renderRegisterView);
+registerRouter.get("/", UserController.renderRegisterView);
 
-router.post("/", upload.single("image"), UserController.createUser);
+registerRouter.post("/", upload.single("image"), UserController.createUser);
 
-export default router;
+export default registerRouter;

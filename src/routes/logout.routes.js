@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { logger } from "../utils/index.js";
-const router = Router();
+const logoutRouter = Router();
 
-router.get("/", (req, res) => {
+logoutRouter.get("/", (req, res) => {
   logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
   req.logout((err) => {
     if (err) {
@@ -15,4 +15,4 @@ router.get("/", (req, res) => {
   res.status(302).redirect("/");
 });
 
-export default router;
+export default logoutRouter;

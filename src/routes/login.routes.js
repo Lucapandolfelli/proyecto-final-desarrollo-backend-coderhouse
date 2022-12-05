@@ -3,11 +3,11 @@ import UserController from "../controllers/user.controller.js";
 import passport from "passport";
 import generateAccessToken from "../utils/token.js";
 
-const router = Router();
+const loginRouter = Router();
 
-router.get("/", UserController.renderLoginView);
+loginRouter.get("/", UserController.renderLoginView);
 
-router.post(
+loginRouter.post(
   "/",
   passport.authenticate("local", {
     successRedirect: "/",
@@ -16,4 +16,4 @@ router.post(
   })
 );
 
-export default router;
+export default loginRouter;

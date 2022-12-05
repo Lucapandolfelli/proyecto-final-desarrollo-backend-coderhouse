@@ -1,15 +1,15 @@
 import { Router } from "express";
 import OrderController from "../controllers/order.controller.js";
 
-const router = Router();
+const orderRouter = Router();
 
 // [POST] 🌐/api/order
-router.get("/", OrderController.getAllOrdersByBuyerEmail);
+orderRouter.get("/", OrderController.getAllOrdersByBuyerEmail);
 
 // [POST] 🌐/api/order/:id
-router.get("/:id", OrderController.getOrderById);
+orderRouter.get("/:id", OrderController.getOrderById);
 
 // [POST] 🌐/api/order
-router.post("/", OrderController.createOrder);
+orderRouter.post("/", OrderController.createOrder);
 
-export default router;
+export default orderRouter;

@@ -1,21 +1,24 @@
 import { Router } from "express";
 import CartController from "../controllers/cart.controller.js";
 
-const router = Router();
+const cartRouter = Router();
 
 // [GET] 🌐/api/cart/:id/products
-router.get("/:id/products", CartController.getProductsByCartId);
+cartRouter.get("/:id/products", CartController.getProductsByCartId);
 
 // [POST] 🌐/api/cart
-router.post("/", CartController.createCart);
+cartRouter.post("/", CartController.createCart);
 
 // [POST] 🌐/api/cart/:id/products/:id_prod
-router.post("/:id/products/:id_prod", CartController.createProductOfACart);
+cartRouter.post("/:id/products/:id_prod", CartController.createProductOfACart);
 
 // [DELETE] 🌐/api/cart/:id
-router.post("/:id/delete", CartController.deleteCartById);
+cartRouter.post("/:id/delete", CartController.deleteCartById);
 
 // [DELETE] 🌐/api/cart/:id/products/:id_prod/delete
-router.post("/:id/products/:id_prod/delete", CartController.deleteProductById);
+cartRouter.post(
+  "/:id/products/:id_prod/delete",
+  CartController.deleteProductById
+);
 
-export default router;
+export default cartRouter;
