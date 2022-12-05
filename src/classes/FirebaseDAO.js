@@ -1,11 +1,10 @@
 import admin from "firebase-admin";
-import config from "../config.js";
 
-admin.initializeApp({
-  credential: admin.credential.cert(config.firebase),
+/* admin.initializeApp({
+  credential: admin.credential.cert(),
 });
 
-const db = admin.firestore();
+const db = admin.firestore(); */
 
 class FirebaseDAO {
   constructor(collectionName) {
