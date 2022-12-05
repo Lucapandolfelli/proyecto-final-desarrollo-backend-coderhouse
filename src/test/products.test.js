@@ -1,4 +1,5 @@
-import { expect, supertest } from "../config/test.config.js";
+import { expect } from "chai";
+import supertest from "supertest";
 
 let request;
 

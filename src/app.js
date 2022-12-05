@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import { graphqlHTTP } from "express-graphql";
 import router from "./routes/index.routes.js";
 import { schema, root } from "./graphql/index.js";
-import "./middleware/passport.js";
+import "./config/passport.js";
 
 // Express
 const app = express();
@@ -30,7 +30,7 @@ app.use(cookieParser("coderhouse"));
 app.use(
   session({
     secret: "coderhouse",
-    resave: true,
+    resave: false,
     saveUninitialized: false,
   })
 );
