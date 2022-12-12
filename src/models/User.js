@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { MessageSchema } from "./Message.js";
 
 const userSchema = new Schema(
   {
@@ -10,6 +11,7 @@ const userSchema = new Schema(
     phone: { type: String, require: true },
     image: { type: String, require: true },
     cart_id: { type: String, require: true },
+    messages: { type: [MessageSchema] },
   },
   {
     timestamps: true,

@@ -38,6 +38,7 @@ class UserController {
         user: user,
         cartId: user.cart_id,
         categories: req.cookies.categoriesCookie,
+        userId: req.cookies.userIdCookie,
       });
     } catch (err) {
       logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);

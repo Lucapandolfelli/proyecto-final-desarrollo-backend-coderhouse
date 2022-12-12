@@ -3,10 +3,10 @@ import OrderController from "../controllers/order.controller.js";
 
 const orderRouter = Router();
 
-// [POST] 🌐/api/order
+// [GET] 🌐/api/order
 orderRouter.get("/", OrderController.getAllOrdersByBuyerEmail);
 
-// [POST] 🌐/api/order/:id
+// [GET] 🌐/api/order/:id
 orderRouter.get("/:id", OrderController.getOrderById);
 
 // [POST] 🌐/api/order

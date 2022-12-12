@@ -12,6 +12,7 @@ logoutRouter.get("/", (req, res) => {
   req.session.destroy();
   res.clearCookie("cartIdCookie");
   res.clearCookie("categoriesCookie");
+  res.clearCookie("userIdCookie");
   res.status(302).redirect("/");
 });
 

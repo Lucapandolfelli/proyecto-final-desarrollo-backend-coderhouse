@@ -2,7 +2,7 @@
   "name": "proyecto-final-backend-coderhouse",
   "version": "1.0.0",
   "description": "Proyecto final del curso de Desarrollo Backend de Coderhouse.",
-  "main": "./src/server.js",
+  "main": "./server.js",
   "type": "module",
   "scripts": {
     "test": "mocha ./src/test/products.test.js",
@@ -31,6 +31,7 @@
     "nodemailer": "6.8.0",
     "passport": "^0.5.3",
     "passport-local": "1.0.0",
+    "socket.io": "^4.5.4",
     "twilio": "3.83.1",
     "winston": "3.8.2"
   },

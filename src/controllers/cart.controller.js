@@ -20,6 +20,7 @@ class CartController {
         products: cart.products,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
+        userId: req.cookies.userIdCookie,
       });
     } catch (err) {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);

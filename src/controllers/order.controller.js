@@ -17,6 +17,7 @@ class OrderController {
         orders,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
+        userId: req.cookies.userIdCookie,
       });
     } catch (err) {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
@@ -39,6 +40,7 @@ class OrderController {
         order,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
+        userId: req.cookies.userIdCookie,
       });
     } catch (err) {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
@@ -66,6 +68,7 @@ class OrderController {
           order: newOrder,
           cartId: req.cookies.cartIdCookie,
           categories: req.cookies.categoriesCookie,
+          userId: req.cookies.userIdCookie,
         });
       } catch (err) {
         logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);

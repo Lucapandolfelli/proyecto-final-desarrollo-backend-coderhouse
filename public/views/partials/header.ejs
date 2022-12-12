@@ -27,6 +27,29 @@
       background-color: #212529;
       color: #fff;
     }
+    .message-options__button{
+      color: #212529;
+      transition: all .3s ease;
+    }
+    .message-options__button:hover{
+      color: #606469;
+    }
+    .chat_button{
+      padding-inline: 1rem;
+      border: none;
+      width: fit-content;
+      height: 40px;
+      border-radius: 1rem;
+      color: #fff;
+      transition: all .3s ease;
+    }
+    .chat_button:hover{
+      background-color: #a82431 !important;
+    }
+    .comments_counter{
+      color: #212529;
+      margin-left: .25rem;
+    }
   </style>
 </head>
 <body>
@@ -57,6 +80,7 @@
       
                 </ul>
               </li>
+              <li class="nav-item"><a class="nav-link" href="/consultas">Consultas</a></li>
               <li class="nav-item"><a class="nav-link" href="/api/cart/<%= cartId %>/products"><i class="fa-solid fa-cart-shopping"></i></a></li>
               <li class="nav-item dropdown ms-2 d-flex justify-content-center align-items-center rounded-circle bg-light" style="width: 30px; height: 30px;">
                 <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,6 +88,7 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="/user">Mi Cuenta</a></li>
+                  <li><a class="dropdown-item" href="/consultas/user/<%= userId %>">Mis Consultas</a></li>
                   <li><a class="dropdown-item" href="/api/order">Mis Compras</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="/logout">Logout</a></li>

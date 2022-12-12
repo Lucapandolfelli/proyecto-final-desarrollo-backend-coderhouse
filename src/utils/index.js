@@ -3,6 +3,7 @@ import client from "./twilio.js";
 import logger from "./logger.js";
 import generateAccessToken from "./token.js";
 import generatePurchaseDate from "./generatePurchaseDate.js";
+import getHourAndMinutes from "./getHourAndMinutes.js";
 
 export {
   sendMailTo,
@@ -10,4 +11,5 @@ export {
   logger,
   generateAccessToken,
   generatePurchaseDate,
+  getHourAndMinutes,
 };

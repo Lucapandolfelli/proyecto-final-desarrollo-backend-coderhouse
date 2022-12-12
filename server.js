@@ -1,9 +1,30 @@
 import app from "./src/app.js";
 import cluster from "node:cluster";
 import { cpus } from "node:os";
+import http from "node:http";
+import { Server } from "socket.io";
 import process from "node:process";
 import mongoose from "mongoose";
 import { logger } from "./src/utils/index.js";
+import MessageService from "./src/services/message.service.js";
+
+// Server
+const server = http.createServer(app);
+
+// Socket.io
+const io = new Server(server);
+
+io.on("connection", async (socket) => {
+  logger.info(`${socket.id} connected.`);
+
+  socket.emit("messages", await MessageService.getAllMessages());
+
+  socket.on("new-reply", async ({ id, body, userId }) => {
+    /* if (await MessageService.addReplyToMessageById(id, body, userId)) {
+      io.sockets.emit("products", await MessageService.getAllMessages());
+    } */
+  });
+});
 
 const enableExpress = () => {
   // Server
@@ -12,7 +33,7 @@ const enableExpress = () => {
     .connect(process.env.MONGODB_URI)
     .then(() => {
       logger.info(`MongoDB is connected.`);
-      app.listen(PORT, () => {
+      server.listen(PORT, () => {
         logger.info(
           `🚀 Server ${process.pid} running on http://localhost:${PORT}...`
         );

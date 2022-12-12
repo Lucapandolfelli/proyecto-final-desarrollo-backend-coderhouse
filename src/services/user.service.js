@@ -15,7 +15,27 @@ class UserService {
 
   async getUserById(user_id) {
     try {
-      return await UserDAO.getUserById(user_id);
+      return await UserDAO.getById(user_id);
+    } catch (err) {
+      throw new Error(err?.message);
+    }
+  }
+
+  async addMessageToUserById(user_id, message) {
+    try {
+      return await UserDAO.addMessageToUserById(user_id, message);
+    } catch (err) {
+      throw new Error(err?.message);
+    }
+  }
+
+  async addReplyToMessageToUserById(message_id, newReply, user_id) {
+    try {
+      return await UserDAO.addReplyToMessageToUserById(
+        message_id,
+        newReply,
+        user_id
+      );
     } catch (err) {
       throw new Error(err?.message);
     }
@@ -46,13 +66,30 @@ class UserService {
           phone,
           password: hashedPassword,
           cart_id: userCart._id,
+          messages: [],
         };
-        return await UserDAO.createUser(newUser);
+        return await UserDAO.create(newUser);
       }
     } catch (err) {
       throw new Error(err?.message);
     }
   }
+
+  async updateUserMessagesById(user_id, messages) {
+    try {
+      return await UserDAO.updateUserMessagesById(user_id, messages);
+    } catch (err) {
+      throw new Error(err?.message);
+    }
+  }
+
+  /* async deleteMessageFromUserById(message_id, user_id) {
+    try {
+      return await UserDAO.deleteMessageFromUserById(message_id, user_id);
+    } catch (err) {
+      throw new Error(err?.message);
+    }
+  } */
 }
 
 export default new UserService();

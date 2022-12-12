@@ -1,0 +1,82 @@
+<%- include('../partials/header.ejs', { title: 'Consultas - Tiendita', showNavbar: true }); -%>
+
+<main>
+  <section class="chat py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h1>Mis Consultas</h1>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="d-flex flex-column align-items-center gap-4" style="width: 1000px; height: 685px;">
+
+          <% if(messages.length > 0) { %>
+            
+            <% messages.forEach(function(message){ %>
+
+                <div class="border rounded p-4 w-100 d-flex justify-content-center flex-column gap-4">
+                  <div class="d-flex justify-content-center gap-3">
+                    <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
+                      <img src="/uploads/<%= userImage %>" style="width: 100%; height: 100%; object-fit: cover;"> 
+                    </div>
+                    <div class="w-100">
+                      <h4 class="fw-semibold" style="font-size: 1rem;"><%= message.email %></h4>
+                      <p class="fw-lighter m-0 pb-1"><%= message.message %></p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span style="font-size: .875rem; color: rgba(0,0,0,0.4);"><%= message.hour %></span>
+                        <div class="d-flex gap-2">
+                          <a class="text-decoration-none" data-bs-toggle="collapse" href="#collapse<%= message._id %>" role="button" aria-expanded="false" aria-controls="collapse<%= message._id %>"><i class="fa-solid fa-comment message-options__button"></i><span class="comments_counter"><%= message.replies.length %></span></a>
+                          <a href="#"><i class="fa-sharp fa-solid fa-share message-options__button"></i></a>
+                          <a href="#"><i class="fa-solid fa-trash message-options__button"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="collapse multi-collapse" id="collapse<%= message._id %>">
+                    <div class="d-flex flex-column gap-3">
+
+                      <% if(message.replies.length > 0) { %>
+
+                        <% message.replies.forEach(function(reply){ %>
+
+                          <div class="border rounded p-4 w-100 d-flex flex-column justify-content-center gap-3">
+                            <div class="rounded-circle overflow-hidden" style="width: 50px; height: 50px;">
+                              <img src="/uploads/<%= userImage %>" style="width: 100%; height: 100%; object-fit: cover;"> 
+                            </div>
+                            <div>
+                              <h4 class="fw-semibold" style="font-size: 1rem;"><%= reply.email %></h4>
+                              <p class="fw-lighter m-0 pb-1"><%= reply.message %></p>
+                              <span style="font-size: .875rem; color: rgba(0,0,0,0.4);"><%= reply.hour %></span>
+                            </div>
+                          </div>
+
+                        <% }); %>
+
+                      <% }else{ %>
+
+                        <!-- <p class="m-0 fw-lighter">Nadie respondió a esta consulta todavía.</p> -->
+                        <p><%= message.replies %></p>
+
+                      <% } %>
+                      
+                    </div>
+                  </div>
+                </div>
+      
+            <% }); %>
+        
+          <% }else{ %>
+  
+            <div class="border rounded p-5 d-flex flex-column justify-content-center align-items-center" style="width: 650px;">
+              <p class="m-0 fs-4">Todavía no tienes ninguna consulta hecha.</p>
+              <span>¿Qué estas esperando? <a class="text-danger text-decoration-none" href="/consultas">Contáctate con otros usuarios!</a></span>
+            </div>
+  
+          <% } %>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs', { showFooter: true }); -%>
