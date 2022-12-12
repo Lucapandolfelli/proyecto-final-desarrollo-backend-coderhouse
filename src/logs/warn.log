@@ -179,3 +179,5 @@
 2022-12-12T03:50:03.188Z [33mwarn[39m: [33mGET /consultas/user/6396a3fad626e678d5b5bfe1 200[39m
 2022-12-12T03:52:45.730Z [33mwarn[39m: [33mPOST /consultas/6396a40ed626e678d5b5bfee/reply 200[39m
 2022-12-12T03:53:02.048Z [33mwarn[39m: [33mGET /consultas 200[39m
+2022-12-12T12:49:04.308Z [33mwarn[39m: [33mPOST /consultas/Otro%20mensaje/reply 200[39m
+2022-12-12T12:49:38.673Z [33mwarn[39m: [33mGET /consultas 200[39m

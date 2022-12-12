@@ -2,32 +2,16 @@ import app from "./src/app.js";
 import cluster from "node:cluster";
 import { cpus } from "node:os";
 import http from "node:http";
-import { Server } from "socket.io";
+import { Server as WebSocketServer } from "socket.io";
 import process from "node:process";
 import mongoose from "mongoose";
 import { logger } from "./src/utils/index.js";
-import MessageService from "./src/services/message.service.js";
+import sockets from "./src/sockets.js";
 
-// Server
 const server = http.createServer(app);
-
-// Socket.io
-const io = new Server(server);
-
-io.on("connection", async (socket) => {
-  logger.info(`${socket.id} connected.`);
-
-  socket.emit("messages", await MessageService.getAllMessages());
-
-  socket.on("new-reply", async ({ id, body, userId }) => {
-    /* if (await MessageService.addReplyToMessageById(id, body, userId)) {
-      io.sockets.emit("products", await MessageService.getAllMessages());
-    } */
-  });
-});
+const io = new WebSocketServer(server);
 
 const enableExpress = () => {
-  // Server
   const PORT = process.env.PORT || 8080;
   mongoose
     .connect(process.env.MONGODB_URI)
@@ -39,6 +23,7 @@ const enableExpress = () => {
         );
       });
     })
+    .then(() => sockets(io))
     .catch((error) => logger.error(error.message));
 };
 
