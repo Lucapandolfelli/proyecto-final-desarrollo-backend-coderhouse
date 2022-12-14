@@ -10,11 +10,16 @@ class MessageController {
         req.cookies.userIdCookie
       );
       if (!messages) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Messages not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Message Not Found",
+        });
       }
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("./pages/chat.ejs", {
+      res.render("./pages/chat.ejs", {
         messages,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
@@ -22,8 +27,12 @@ class MessageController {
         userImage: req.user.image,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -34,11 +43,16 @@ class MessageController {
       } = req;
       const messages = await MessageService.getMessagesByUserId(id);
       if (!messages) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Messages not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Message Not Found",
+        });
       }
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("./pages/mis-consultas.ejs", {
+      res.render("./pages/mis-consultas.ejs", {
         messages,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
@@ -46,8 +60,12 @@ class MessageController {
         userImage: req.user.image,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -58,8 +76,9 @@ class MessageController {
         body,
         req.cookies.userIdCookie
       );
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("./pages/chat.ejs", {
+      res.render("./pages/chat.ejs", {
         messages,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
@@ -67,8 +86,12 @@ class MessageController {
         userImage: req.user.image,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -83,8 +106,8 @@ class MessageController {
         body,
         req.cookies.userIdCookie
       );
-      logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      /* res.status(200).render("./pages/chat.ejs", {
+      /* logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.status(200).render("./pages/chat.ejs", {
         messages,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
@@ -93,8 +116,12 @@ class MessageController {
       }); */
       res.redirect("/consultas");
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -114,7 +141,12 @@ class MessageController {
       });
     } catch (err) {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res
+        .status(500)
+        .render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
     }
   } */
 }

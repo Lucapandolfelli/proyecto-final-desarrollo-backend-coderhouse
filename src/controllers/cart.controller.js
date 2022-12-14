@@ -12,37 +12,53 @@ class CartController {
       } = req;
       const cart = await CartService.getCartById(id);
       if (!cart) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Cart not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Cart Not Found",
+        });
       }
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("./pages/cart.ejs", {
+      res.render("./pages/cart.ejs", {
         products: cart.products,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
         userId: req.cookies.userIdCookie,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
   async createCart(req, res) {
     const { body } = req;
     if (Object.entries(body).length == 0 || Object.entries(body).length < 1) {
+      res.status(422);
       logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(422).json({
-        error: "No se pudo obtener los atributos del carrito correctamente.",
+      res.render("./pages/error.ejs", {
+        code: 422,
+        message: "No se pudo obtener los atributos del carrito correctamente",
       });
     } else {
       try {
         const newCart = await CartService.createCart(body);
+        res.status(201);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(201).json({ newCartId: newCart._id });
+        res.json({ newCartId: newCart._id });
       } catch (err) {
+        res.status(500);
         logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(500).json({ error: err?.message });
+        res.render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
       }
     }
   }
@@ -55,19 +71,32 @@ class CartController {
       const product = await ProductService.getProductById(id_prod);
       const cart = await CartService.getCartById(id);
       if (!product) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Product not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Product Not Found",
+        });
         if (!cart) {
+          res.status(404);
           logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-          res.status(404).json({ error: "Cart not found." });
+          res.render("./pages/error.ejs", {
+            code: 404,
+            message: "Cart Not Found",
+          });
         }
       }
       await CartService.createProductOfACart(id, product);
+      res.status(302);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(302).redirect(`/api/cart/${id}/products`);
+      res.redirect(`/api/cart/${id}/products`);
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -78,15 +107,24 @@ class CartController {
       } = req;
       const cart = await CartService.getCartById(id);
       if (!cart) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Cart not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Cart Not Found",
+        });
       }
       await CartService.deleteCartById(id);
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).redirect(`/api/cart/${id}/products`);
+      res.redirect(`/api/cart/${id}/products`);
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -98,19 +136,32 @@ class CartController {
       const product = await ProductService.getProductById(id_prod);
       const cart = await CartService.getCartById(id);
       if (!product) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Product not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Product Not Found",
+        });
         if (!cart) {
+          res.status(404);
           logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-          res.status(404).json({ error: "Cart not found." });
+          res.render("./pages/error.ejs", {
+            code: 404,
+            message: "Cart Not Found",
+          });
         }
       }
       await CartService.deleteProductByCartId(id, id_prod);
+      res.status(302);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(302).redirect(`/api/cart/${id}/products`);
+      res.redirect(`/api/cart/${id}/products`);
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 }

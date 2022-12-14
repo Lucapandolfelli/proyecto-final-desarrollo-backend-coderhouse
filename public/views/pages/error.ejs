@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs', { title: 'Error - Tiendita', showNavbar: false }); -%>
+
+<main class="vh-100 bg-dark">
+  <section class="not-found h-100">
+    <div class="container d-flex justify-content-center align-items-center h-100">
+      <div class="text-center text-light">
+        <h1 class="fw-semibold" style="font-size: 5rem;">Error <%= code %></h1>
+        <h4 class="fs-3 fw-lighter mb-4"><%= message %></h4>
+        <a href="/" class="text-light fs-5 text-decoration-none fw-lighter"><i class="fa-solid fa-house-chimney me-2"></i>Volver al inicio</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer.ejs', { showFooter: false }); -%>

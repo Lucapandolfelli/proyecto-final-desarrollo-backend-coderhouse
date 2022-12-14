@@ -1,15 +1,13 @@
 import express from "express";
-import session from "express-session";
-import passport from "passport";
-import cors from "cors";
 import compression from "compression";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { graphqlHTTP } from "express-graphql";
 import router from "./routes/index.routes.js";
 import { schema, root } from "./graphql/index.js";
 import "./config/passport.js";
 
-// Express
+// App
 const app = express();
 
 // Middleware
@@ -26,16 +24,7 @@ app.use(
     graphiql: true,
   })
 );
-app.use(cookieParser("coderhouse"));
-app.use(
-  session({
-    secret: "coderhouse",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(cookieParser());
 app.use(router);
 
 // View Engine

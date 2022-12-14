@@ -8,19 +8,19 @@
           <h2>Login</h2>
         </div>
         <div class="mb-4">
-          <form action="/login" method="POST">
+          <form action="/auth/login" method="POST">
             <div class="mb-3">
               <label class="form-label" for="email">Email</label>
-              <input class="form-control" type="email" name="email" id="email">
+              <input class="form-control" type="email" name="email" id="email" required>
             </div>
             <div class="mb-4">
               <label class="form-label" for="password">Contraseña</label>
-              <input class="form-control" type="password" name="password" id="password">
+              <input class="form-control" type="password" name="password" id="password" required>
             </div>
             <button class="btn btn-primary w-100">Login</button>
           </form>
         </div>
-        <span style="font-size: .85rem;">You're not register yet? <a href="/register">Do it here!</a></span>
+        <span style="font-size: .85rem;">¿Todavía no estas registrado? <a href="/auth/register">Hacelo aquí!</a></span>
       </div>
     </div>
   </section>

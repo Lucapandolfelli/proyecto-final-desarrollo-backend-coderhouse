@@ -9,19 +9,28 @@ class OrderController {
       const { email } = req.user;
       const orders = await OrderService.getAllOrdersByBuyerEmail(email);
       if (!orders) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Orders not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Orders Not Found",
+        });
       }
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("./pages/order.ejs", {
+      res.render("./pages/order.ejs", {
         orders,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
         userId: req.cookies.userIdCookie,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -33,27 +42,37 @@ class OrderController {
       const order = await OrderService.getOrderById(id);
       if (!order) {
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Order not found." });
+        res.status(404).render("./pages/error.ejs", {
+          code: 404,
+          message: "Order Not Found",
+        });
       }
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("./pages/single-order.ejs", {
+      res.render("./pages/single-order.ejs", {
         order,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
         userId: req.cookies.userIdCookie,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
   async createOrder(req, res) {
     const { body } = req;
     if (Object.entries(body).length == 0 || Object.entries(body).length < 3) {
+      res.status(422);
       logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(422).json({
-        error: "No se pudo obtener los atributos del carrito correctamente.",
+      res.render("./pages/error.ejs", {
+        code: 422,
+        message: "No se pudo obtener los atributos del carrito correctamente",
       });
     } else {
       try {
@@ -62,8 +81,9 @@ class OrderController {
           state,
           req.cookies.cartIdCookie
         );
+        res.status(200);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(200).render("./pages/single-order.ejs", {
+        res.render("./pages/single-order.ejs", {
           purchase_date: order.purchase_date,
           order: newOrder,
           cartId: req.cookies.cartIdCookie,
@@ -71,8 +91,12 @@ class OrderController {
           userId: req.cookies.userIdCookie,
         });
       } catch (err) {
+        res.status(500);
         logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(500).json({ error: err?.message });
+        res.render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
       }
     }
   }

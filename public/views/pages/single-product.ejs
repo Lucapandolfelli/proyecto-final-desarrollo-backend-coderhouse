@@ -47,10 +47,13 @@
           <div class="d-flex gap-3">
             <form action="/api/cart/<%= cartId %>/products/<%= product._id %>" method="POST">
               <input type="hidden" name="id_prod" value="<%= product._id %>">
+              <input type="hidden" name="in_cart">
               <button class="btn rounded-3 border border-dark site_button">Añadir al carrito</button>
             </form>
             <form action="/api/order" method="POST">
-              <input type="hidden" name="products" value="<%=  %>">
+              <input type="hidden" name="products" value="">
+              <input type="hidden" name="state" value="Generada">
+              <input type="hidden" name="buyer_email" value="">
               <button class="btn rounded-3 border border-dark site_button">Comprar ahora</button>
             </form>
           </div>

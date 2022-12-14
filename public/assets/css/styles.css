@@ -1,0 +1,52 @@
+.product_card:hover{
+  transform: scale(1.0125);
+}
+
+.category_button:hover{
+  background-color: #2f343a !important;
+}
+
+.cart_button{
+  font-size: .85rem;
+}
+
+.cart_button:hover{
+  color: #a82431 !important;
+}
+
+.site_button{
+  transition: all .3s ease;
+}
+
+.site_button:hover{
+  background-color: #212529;
+  color: #fff;
+}
+
+.message-options__button{
+  color: #212529;
+  transition: all .3s ease;
+}
+
+.message-options__button:hover{
+  color: #606469;
+}
+
+.chat_button{
+  padding-inline: 1rem;
+  border: none;
+  width: fit-content;
+  height: 40px;
+  border-radius: 1rem;
+  color: #fff;
+  transition: all .3s ease;
+}
+
+.chat_button:hover{
+  background-color: #a82431 !important;
+}
+
+.comments_counter{
+  color: #212529;
+  margin-left: .25rem;
+}

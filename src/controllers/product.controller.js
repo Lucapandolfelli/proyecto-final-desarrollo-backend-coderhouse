@@ -12,32 +12,50 @@ class ProductController {
       try {
         const product = await ProductService.getProductById(id);
         if (!product) {
+          res.status(404);
           logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-          res.status(404).json({ error: "Product not found." });
+          res.render("./pages/error.ejs", {
+            code: 404,
+            message: "Products Not Found",
+          });
         }
+        res.status(200);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(200).render("./pages/single-product.ejs", {
+        res.render("./pages/single-product.ejs", {
           product,
           cartId: req.cookies.cartIdCookie,
           categories: req.cookies.categoriesCookie,
           userId: req.cookies.userIdCookie,
         });
       } catch (err) {
+        res.status(500);
         logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(500).json({ error: err.message });
+        res.render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
       }
     } else {
       try {
         const products = await ProductService.getAllProducts();
         if (!products) {
+          res.status(404);
           logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-          res.status(404).json({ error: "Products not found." });
+          res.render("./pages/error.ejs", {
+            code: 404,
+            message: "Product Not Found",
+          });
         }
+        res.status(200);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(200).json(products);
+        res.json(products);
       } catch (err) {
+        res.status(500);
         logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(500).json({ error: err?.message });
+        res.render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
       }
     }
   }
@@ -51,11 +69,16 @@ class ProductController {
         category.charAt(0).toUpperCase() + category.slice(1) // Set first letter capitalize to be found on mongo
       );
       if (!products) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: `Products of ${category} not found.` });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: `Products of ${category} Not Found`,
+        });
       }
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).render("index.ejs", {
+      res.render("index.ejs", {
         products,
         cartId: req.cookies.cartIdCookie,
         categories: req.cookies.categoriesCookie,
@@ -63,26 +86,37 @@ class ProductController {
         userId: req.cookies.userIdCookie,
       });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
   async createProduct(req, res) {
     const { body } = req;
     if (Object.entries(body).length == 0 || Object.entries(body).length < 6) {
+      res.status(422);
       logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(422).json({
-        error: "No se pudo obtener los atributos del producto correctamente.",
+      res.render("./pages/error.ejs", {
+        code: 422,
+        message: "No se pudo obtener los atributos del producto correctamente",
       });
     } else {
       try {
         const createdProduct = await ProductService.createProduct(body);
+        res.status(201);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(201).json({ createdProduct });
+        res.json({ createdProduct });
       } catch (err) {
+        res.status(500);
         logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(500).json({ error: err?.message });
+        res.render("./pages/error.ejs", {
+          code: 500,
+          message: "Internal Server Error",
+        });
       }
     }
   }
@@ -95,15 +129,24 @@ class ProductController {
       const newProduct = req.body;
       const product = await ProductService.getProductById(id);
       if (!product) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Product not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Product Not Found",
+        });
       }
       const updatedProduct = await ProductService.updateProduct(id, newProduct);
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).json({ updatedProduct });
+      res.json({ updatedProduct });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 
@@ -114,15 +157,24 @@ class ProductController {
       } = req;
       const product = await ProductService.getProductById(id);
       if (!product) {
+        res.status(404);
         logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.status(404).json({ error: "Product not found." });
+        res.render("./pages/error.ejs", {
+          code: 404,
+          message: "Product Not Found",
+        });
       }
       const deletedProduct = await ProductService.deleteProductById(id);
+      res.status(200);
       logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(200).json({ deletedProduct });
+      res.json({ deletedProduct });
     } catch (err) {
+      res.status(500);
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-      res.status(500).json({ error: err?.message });
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
     }
   }
 }
