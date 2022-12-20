@@ -1,5 +1,5 @@
 import OrderService from "../services/order.service.js";
-import { logger } from "../utils/index.js";
+import { logger, sendMailTo } from "../utils/index.js";
 
 class OrderController {
   constructor() {}
@@ -81,10 +81,15 @@ class OrderController {
           state,
           req.cookies.cartIdCookie
         );
+        sendMailTo(
+          newOrder.buyer_email,
+          "Compraste en Tiendita",
+          `Tu compra se ha realizado correctamente. Tu número de orden es ${newOrder._id}`
+        );
         res.status(200);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
         res.render("./pages/single-order.ejs", {
-          purchase_date: order.purchase_date,
+          purchase_date: newOrder.purchase_date,
           order: newOrder,
           cartId: req.cookies.cartIdCookie,
           categories: req.cookies.categoriesCookie,

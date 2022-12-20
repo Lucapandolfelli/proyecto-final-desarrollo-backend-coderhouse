@@ -127,3 +127,22 @@
 [20-12-2022 14:03:56] [31merror[39m: [31mPOST /auth/login 404[39m
 [20-12-2022 14:04:32] [31merror[39m: [31moption usecreateindex is not supported[39m
 [20-12-2022 14:30:04] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 17:54:55] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 17:55:22] [33mwarn[39m: [33mPOST /auth/register 500[39m
+[20-12-2022 18:11:46] [33mwarn[39m: [33mPOST /auth/register 500[39m
+[20-12-2022 18:13:40] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 18:16:55] [33mwarn[39m: [33mPOST /auth/register 500[39m
+[20-12-2022 18:17:13] [33mwarn[39m: [33mPOST /auth/register 500[39m
+[20-12-2022 18:21:22] [31merror[39m: [31mGET /login 404[39m
+[20-12-2022 18:21:22] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 18:38:15] [31merror[39m: [31mGET /login 404[39m
+[20-12-2022 18:38:44] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 18:39:27] [31merror[39m: [31mGET /uploads/1671572054716-ben%20el%20relojero.jpg 404[39m
+[20-12-2022 18:39:27] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 18:44:48] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 18:44:51] [33mwarn[39m: [33mPOST /api/order 500[39m
+[20-12-2022 18:44:56] [33mwarn[39m: [33mPOST /api/order 500[39m
+[20-12-2022 18:45:39] [33mwarn[39m: [33mPOST /api/order 500[39m
+[20-12-2022 18:45:41] [31merror[39m: [31mGET /favicon.ico 404[39m
+[20-12-2022 18:47:05] [33mwarn[39m: [33mPOST /api/order 500[39m
+[20-12-2022 18:48:59] [31merror[39m: [31mGET /favicon.ico 404[39m

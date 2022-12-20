@@ -1,6 +1,5 @@
 import UserService from "../services/user.service.js";
-import { logger } from "../utils/index.js";
-import { sendMailTo } from "../utils/index.js";
+import { client, logger, sendMailTo } from "../utils/index.js";
 
 class UserController {
   constructor() {}
@@ -92,15 +91,19 @@ class UserController {
       }
 
       if (!user) {
-        const info = await sendMailTo(
-          "laury.walter@ethereal.email",
-          "Nuevo registro.",
-          "Nuevo usuario registrado."
+        sendMailTo(
+          process.env.ADMIN_MAIL,
+          "Nuevo registro de usuario",
+          "Se ha registrado un nuevo usuario."
         );
+        client.messages.create({
+          body: "Se ha registrado un nuevo usuario.",
+          from: process.env.TWILIO_PHONE,
+          to: process.env.ADMIN_PHONE,
+        });
         res.status(302);
-        logger.info(`Message id: ${info.messageId}`);
         logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
-        res.redirect("/login");
+        res.redirect("/auth/login");
       }
     } catch (err) {
       res.status(500);
