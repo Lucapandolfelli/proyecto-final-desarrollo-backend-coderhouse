@@ -1,5 +1,5 @@
 import { Router } from "express";
-import JWTAuth from "../middleware/jwtAuth.js";
+import JWTAuth from "../middleware/jwt.middleware.js";
 import { Product } from "../models/Product.js";
 import User from "../models/User.js";
 import cartRouter from "./cart.routes.js";

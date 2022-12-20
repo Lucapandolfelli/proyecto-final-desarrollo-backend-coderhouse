@@ -109,3 +109,8 @@
 [20-12-2022 12:57:11] [31merror[39m: [31mGET /assets/css/bootstrap.min.css.map 404[39m
 [20-12-2022 12:57:39] [31merror[39m: [31mGET /mis-consultas 404[39m
 [20-12-2022 13:00:32] [31merror[39m: [31mGET /assets/css/bootstrap.min.css.map 404[39m
+[20-12-2022 14:03:26] [31merror[39m: [31mPOST /auth/login 404[39m
+[20-12-2022 14:03:41] [31merror[39m: [31moption usecreateindex is not supported[39m
+[20-12-2022 14:03:56] [31merror[39m: [31mPOST /auth/login 404[39m
+[20-12-2022 14:04:32] [31merror[39m: [31moption usecreateindex is not supported[39m
+[20-12-2022 14:30:04] [31merror[39m: [31mGET /favicon.ico 404[39m

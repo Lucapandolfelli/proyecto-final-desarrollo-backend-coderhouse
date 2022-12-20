@@ -7,7 +7,6 @@ import router from "./routes/index.routes.js";
 import { schema, root } from "./graphql/index.js";
 import "./config/passport.js";
 
-// App
 const app = express();
 
 // Middleware
