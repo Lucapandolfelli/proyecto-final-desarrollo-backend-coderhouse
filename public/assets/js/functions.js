@@ -81,5 +81,10 @@ export const renderMessages = (messages) => {
       })
       .join(" ");
     document.getElementById("messageList").innerHTML = html;
+  } else {
+    const html = `
+      <p>Todavía nadie realizó una consulta. Sé el primero en hacerlo</p>
+    `;
+    document.getElementById("messageList").innerHTML = html;
   }
 };

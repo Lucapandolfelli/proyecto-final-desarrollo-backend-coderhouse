@@ -21,16 +21,17 @@ class CartService {
 
   async createProductOfACart(cart_id, product) {
     try {
-      let { products } = await this.getCartById(cart_id);
+      let { products, total } = await this.getCartById(cart_id);
       const productInCart = products.find((item) =>
         item._id.equals(product._id)
       );
+      total = total + product.price;
       if (!productInCart) {
         product.in_cart = 1;
-        return await CartDAO.createProductOfACart(cart_id, product);
+        return await CartDAO.createProductOfACart(cart_id, product, total);
       }
       product.in_cart = productInCart.in_cart + 1;
-      return await CartDAO.createProductOfACart(cart_id, product);
+      return await CartDAO.createProductOfACart(cart_id, product, total);
     } catch (err) {
       throw new Error(err?.message);
     }

@@ -5,8 +5,7 @@ const JWTAuth = (req, res, next) => {
   const token = req.cookies.token;
   try {
     if (!token) {
-      res.tstaus(302);
-      logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.status(302);
       return res.redirect("/auth/login");
     }
     const user = jwt.verify(token, process.env.JWT_SECRET_TOKEN);

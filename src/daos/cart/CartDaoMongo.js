@@ -14,7 +14,7 @@ class CartDaoMongo extends MongoDAO {
     return this.instance;
   }
 
-  async createProductOfACart(cart_id, product) {
+  async createProductOfACart(cart_id, product, total) {
     try {
       const { products } = await this.model.findOne(
         { _id: cart_id },
@@ -23,11 +23,11 @@ class CartDaoMongo extends MongoDAO {
         }
       );
       if (products.length > 0) {
-        await this.deleteProductById(cart_id, product._id);
+        await this.deleteProductByCartId(cart_id, product._id);
       }
       return await this.model.findByIdAndUpdate(
         { _id: cart_id },
-        { $push: { products: product } }
+        { $push: { products: product }, total }
       );
     } catch (err) {
       throw new Error(err?.message);
@@ -37,7 +37,10 @@ class CartDaoMongo extends MongoDAO {
   async deleteCartById(cart_id) {
     try {
       const cart = await this.getById(cart_id);
-      await this.model.updateOne({ _id: cart_id }, { $set: { products: [] } });
+      await this.model.updateOne(
+        { _id: cart_id },
+        { $set: { products: [], total: 0 } }
+      );
       return cart;
     } catch (err) {
       throw new Error(err?.message);
@@ -47,12 +50,22 @@ class CartDaoMongo extends MongoDAO {
   //TODO: set 'in_cart' property -1 on delete
   async deleteProductByCartId(cart_id, product_id) {
     try {
-      const product = await Product.findById(product_id);
+      const { products } = await this.model.findOne(
+        { _id: cart_id },
+        {
+          products: { $elemMatch: { _id: product_id } },
+        }
+      );
+      let { total } = await this.getById(cart_id);
+      const newTotal = total - products[0].price * products[0].in_cart;
       await this.model.updateOne(
         { _id: cart_id },
-        { $pull: { products: { _id: product_id } } }
+        {
+          $pull: { products: { _id: product_id } },
+          $set: { total: newTotal },
+        }
       );
-      return product;
+      return products[0];
     } catch (err) {
       throw new Error(err?.message);
     }

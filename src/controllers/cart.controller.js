@@ -24,6 +24,7 @@ class CartController {
       res.render("./pages/cart.ejs", {
         products: cart.products,
         cartId: req.cookies.cartIdCookie,
+        cartTotal: cart.total,
         categories: req.cookies.categoriesCookie,
         userId: req.cookies.userIdCookie,
       });
@@ -160,7 +161,7 @@ class CartController {
       logger.warn(`${req.method} ${req.originalUrl} ${res.statusCode}`);
       res.render("./pages/error.ejs", {
         code: 500,
-        message: "Internal Server Error",
+        message: err?.message,
       });
     }
   }

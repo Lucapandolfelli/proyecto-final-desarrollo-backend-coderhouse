@@ -24,7 +24,7 @@ const enableExpress = () => {
       });
     })
     .then(() => sockets(io))
-    .catch((error) => logger.error(error.message));
+    .catch((err) => logger.error(err?.message));
 };
 
 const enableCluster = () => {

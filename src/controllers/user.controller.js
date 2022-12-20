@@ -111,6 +111,26 @@ class UserController {
       });
     }
   }
+
+  async logout(req, res) {
+    try {
+      res.status(302);
+      logger.http(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res
+        .clearCookie("token")
+        .clearCookie("cartIdCookie")
+        .clearCookie("categoriesCookie")
+        .clearCookie("userIdCookie")
+        .redirect("/");
+    } catch (err) {
+      res.status(500);
+      logger.error(`${req.method} ${req.originalUrl} ${res.statusCode}`);
+      res.render("./pages/error.ejs", {
+        code: 500,
+        message: "Internal Server Error",
+      });
+    }
+  }
 }
 
 export default new UserController();
