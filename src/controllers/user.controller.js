@@ -91,7 +91,7 @@ class UserController {
       }
 
       if (!user) {
-        sendMailTo(
+        await sendMailTo(
           process.env.ADMIN_MAIL,
           "Nuevo registro de usuario",
           "Se ha registrado un nuevo usuario."
