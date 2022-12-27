@@ -58,7 +58,7 @@ router.use("/auth", authRouter);
 router.use("/user", JWTAuth, userRouter);
 router.use("/consultas", JWTAuth, messageRouter);
 router.use("/api/cart", JWTAuth, cartRouter);
-router.use("/api/products", JWTAuth, productRouter);
+router.use("/api/products", productRouter);
 router.use("/api/order", JWTAuth, orderRouter);
 
 router.use((req, res) => {

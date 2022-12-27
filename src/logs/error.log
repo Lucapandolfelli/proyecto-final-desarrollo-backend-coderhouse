@@ -140,3 +140,4 @@
 [27-12-2022 10:26:43] [31merror[39m: [31mGET /assets/css/bootstrap.min.css.map 404[39m
 [27-12-2022 10:26:52] [31merror[39m: [31mGET /favicon.ico 404[39m
 [27-12-2022 10:26:52] [31merror[39m: [31mGET /assets/css/bootstrap.min.css.map 404[39m
+[27-12-2022 10:35:24] [31merror[39m: [31mPOST /auth/login 404[39m
